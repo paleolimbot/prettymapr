@@ -5,7 +5,7 @@
 \title{Auto Plot Scalebar}
 \usage{
 scalebar(plotunit = NULL, plotepsg = NULL, widthhint = 0.25,
-  unitcategory = "metric", htin = 0.1, padin = c(0.1, 0.1),
+  unitcategory = "metric", htin = 0.1, padin = c(0.15, 0.15),
   style = "bar", bar.cols = c("black", "white"), lwd = 1,
   linecol = "black", tick.cex = 0.7, labelpadin = 0.08, label.cex = 0.8,
   label.col = "black", pos = "bottomleft")
@@ -26,7 +26,7 @@ the projection is assumed to be lat/lon (EPSG:4326), or Spherical Mercator other
 
 \item{htin}{Height (in inches) of the desired scale bar}
 
-\item{padin}{A vector of length 2 determining the distance between the scalebar
+\item{padin}{A vector of length 2 determining the distance in inches between the scalebar
 and the edge of the plottable area.}
 
 \item{style}{One of "bar" or "ticks".}
@@ -59,6 +59,6 @@ scalebar(plotunit="m")
 library(maptools)
 data(wrld_simpl)
 plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
-scalebarparams()
+scalebar()
 }
 

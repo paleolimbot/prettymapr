@@ -278,7 +278,7 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
 #' (mostly) occupy.
 #' @param unitcategory One of "metric" or "imperial"
 #' @param htin Height (in inches) of the desired scale bar
-#' @param padin A vector of length 2 determining the distance between the scalebar
+#' @param padin A vector of length 2 determining the distance in inches between the scalebar
 #' and the edge of the plottable area.
 #' @param style One of "bar" or "ticks".
 #' @param bar.cols If \code{style=="bar"}, the colors to be repeated to make the bar.
@@ -303,7 +303,7 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
 #' scalebar()
 #'
 scalebar <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric",
-                     htin=0.1, padin=c(0.1, 0.1), style="bar", bar.cols=c("black", "white"),
+                     htin=0.1, padin=c(0.15, 0.15), style="bar", bar.cols=c("black", "white"),
                      lwd=1, linecol="black", tick.cex=0.7, labelpadin=0.08, label.cex=0.8,
                      label.col="black", pos="bottomleft") {
 
