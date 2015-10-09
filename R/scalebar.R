@@ -300,7 +300,7 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
 #' library(maptools)
 #' data(wrld_simpl)
 #' plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
-#' scalebarparams()
+#' scalebar()
 #'
 scalebar <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric",
                      htin=0.1, padin=c(0.1, 0.1), style="bar", bar.cols=c("black", "white"),
