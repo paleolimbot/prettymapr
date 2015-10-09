@@ -1,10 +1,13 @@
 Package: prettymapr
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1
+Title: Pretty Mapping In R
+Version: 0.1.0.9000
 Date: 2015-10-08
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: Dewey Dunnington <dewey@fishandwhistle.net>
+Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
 Description: More about what it does (maybe more than one line)
-License: What license is it under?
+License: GPL-2
 LazyData: TRUE
+Depends: sp
+Imports: rgdal
+Suggests: rcanvec, maptools, testthat
