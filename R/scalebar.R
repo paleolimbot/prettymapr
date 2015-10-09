@@ -134,7 +134,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
 
   if(!is.null(plotepsg)) {
     widthbottom <- .geodist(extents[1], extents[3], extents[2], extents[3], plotepsg)
-    midY <- mean(extents[3], extents[4])
+    midY <- mean(c(extents[3], extents[4]))
     widthmiddle <- .geodist(extents[1], midY, extents[2], midY, plotepsg)
     widthtop <- .geodist(extents[1], extents[4], extents[2], extents[4], plotepsg)
     percentdiff <- (max(widthbottom, widthmiddle, widthtop) -
