@@ -5,6 +5,8 @@
 #'
 #' This function executes everything in \code{plotexpression}, then draws
 #' north arrow and scale bar using \link{northarrow} and \link{scalebar}.
+#' Specify that plot is in a non lat/lon projection by passing \code{scale.plotepsg=...}
+#' or \code{plotunit="m"}.
 #'
 #' @param plotexpression An expression to plot the map, can be in brackets. e.g.
 #' \code{plot(stuff); text(places, "readme!")} or \code{{plot(stuff);
@@ -59,6 +61,10 @@
 #' prettymap({plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3))
 #'            text(-62, 44, "Nova Scotia")
 #'            text(-63, 47, "PEI")}, arrow.scale=1.1)
+#'
+#' #also works in non-lat/lon coordinate systems
+#' scalebar(plotepsg=3395) #specify plot is in mercator projection
+#' scalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
 #' }
 #'
 prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),

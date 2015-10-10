@@ -41,6 +41,10 @@ data(wrld_simpl)
 plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
 scalebar()
 
+#also works in non-lat/lon coordinate systems
+scalebar(plotepsg=3395) #specify plot is in mercator projection
+scalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
+
 #northarrow() adds a north arrow
 northarrow()
 
