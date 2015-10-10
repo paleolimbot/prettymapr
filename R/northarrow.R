@@ -28,7 +28,7 @@
 #'
 northarrow <- function(pos="topright", padin=c(0.15, 0.15), scale=1, lwd=1, border="black",
                        cols=c("white", "black"), text.col="black") {
-  extents <- par("usr")
+  extents <- graphics::par("usr")
 
   arrow1.x <- c(-0.5, 0, 0)
   arrow1.y <- c(-0.5, 0.5, 0)
@@ -44,7 +44,7 @@ northarrow <- function(pos="topright", padin=c(0.15, 0.15), scale=1, lwd=1, bord
   leftin <- graphics::grconvertX(extents[1], from="user", to="inches")
   topin <- graphics::grconvertY(extents[4], from="user", to="inches")
   rightin <- graphics::grconvertX(extents[2], from="user", to="inches")
-  textheight <- strheight("N", units="user", cex=text.cex)
+  textheight <- graphics::strheight("N", units="user", cex=text.cex)
 
   if(pos=="bottomleft") {
     x <- graphics::grconvertX(leftin+padin[1], from="inches", to="user")

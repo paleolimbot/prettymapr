@@ -74,7 +74,7 @@ prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
   prevpars <- graphics::par(oma=oma, mai=mai)
   tryCatch(expr={
     force(plotexpression)
-    if(drawbox) box(lwd=box.lwd)
+    if(drawbox) graphics::box(lwd=box.lwd)
     if(drawscale) scalebar(plotunit=scale.plotunit, pos=scale.pos, htin=scale.htin,
                            widthhint=scale.widthhint, unitcategory=scale.unitcategory, style=scale.style,
                            bar.cols=scale.bar.cols, lwd=scale.lwd, linecol=scale.linecol,
