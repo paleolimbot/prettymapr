@@ -29,11 +29,12 @@ Plot a north arrow (pointing directly "up") positioned based on current
 plot extents.
 }
 \examples{
+\donttest{
 library(maptools)
 data(wrld_simpl)
 plot(wrld_simpl)
 northarrow()
-
+}
 plot(1:5, 1:5, asp=1)
 northarrow()
 }

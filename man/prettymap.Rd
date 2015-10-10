@@ -11,50 +11,96 @@ prettymap(plotexpression, oma = c(0, 0, 0, 0), mai = c(0.1, 0.1, 0.1, 0.1),
   scale.bar.cols = c("black", "white"), scale.lwd = 1,
   scale.linecol = "black", scale.padin = c(0.15, 0.15),
   scale.labelpadin = 0.08, scale.label.cex = 0.8,
-  scale.label.col = "black", scale.plotunit = NULL, scale.plotepsg = NULL)
+  scale.label.col = "black", scale.plotunit = NULL, scale.plotepsg = NULL,
+  scale.tick.cex = 0.8, drawarrow = TRUE, arrow.pos = "topright",
+  arrow.scale = 1, arrow.padin = c(0.15, 0.15), arrow.lwd = 1,
+  arrow.cols = c("white", "black"), arrow.border = "black",
+  arrow.text.col = "black")
 }
 \arguments{
-\item{plotexpression}{}
+\item{plotexpression}{An expression to plot the map, can be in brackets. e.g.
+\code{plot(stuff); text(places, "readme!")} or \code{{plot(stuff);
+text(places, "readme!")}}}
 
-\item{oma}{}
+\item{oma}{A vector of length 4 describing the outer margin area. See documentation
+for \code{graphics::par}.}
 
-\item{mai}{}
+\item{mai}{A vector of length 4 describing the margin area in inches. See documentation
+for \code{graphics::par}.}
 
-\item{drawbox}{}
+\item{drawbox}{\code{TRUE} if box should be drawn around map, \code{FALSE} otherwise.}
 
-\item{box.lwd}{}
+\item{box.lwd}{The line width of the box}
 
-\item{drawscale}{}
+\item{drawscale}{\code{TRUE} if scalebar should be drawn, \code{FALSE} otherwise.}
 
-\item{scale.pos}{}
+\item{scale.pos}{Where to align the scalebar. One of "bottomleft", "bottomright", "topleft",
+or "topright".}
 
-\item{scale.htin}{}
+\item{scale.htin}{Height (in inches) of the desired scale bar}
 
-\item{scale.widthhint}{}
+\item{scale.widthhint}{The fraction of the plottable width which the scale bar should
+(mostly) occupy.}
 
-\item{scale.unitcategory}{}
+\item{scale.unitcategory}{One of "metric" or "imperial"}
 
-\item{scale.style}{}
+\item{scale.style}{One of "bar" or "ticks".}
 
-\item{scale.bar.cols}{}
+\item{scale.bar.cols}{If \code{style=="bar"}, the colors to be repeated to make the bar.}
 
-\item{scale.lwd}{}
+\item{scale.lwd}{The line width to use when drawing the scalebar}
 
-\item{scale.linecol}{}
+\item{scale.linecol}{The line color to use when drawing the scalebar}
 
-\item{scale.padin}{}
+\item{scale.padin}{A vector of length 2 determining the distance in inches between the scalebar
+and the edge of the plottable area.}
 
-\item{scale.labelpadin}{}
+\item{scale.labelpadin}{The distance between the end of the scalebar and the label (inches)}
 
-\item{scale.label.cex}{}
+\item{scale.label.cex}{The font size of the label}
 
-\item{scale.label.col}{}
+\item{scale.label.col}{The color of the label}
 
-\item{scale.plotunit}{}
+\item{scale.plotunit}{The unit which the current plot is plotted in, one of \code{cm},
+\code{m}, \code{km}, \code{in}, \code{ft}, \code{mi}. or \code{latlon}. This
+parameter is optional if \code{plotepsg} is passed.}
 
-\item{scale.plotepsg}{}
+\item{scale.plotepsg}{The projection of the current plot. If extents are valid lat/lons,
+the projection is assumed to be lat/lon (EPSG:4326), or Spherical Mercator otherwise
+(EPSG:3857). This is done to work seamlessly with OpenStreetMap packages.}
+
+\item{scale.tick.cex}{If \code{style=="ticks"}, the height of interior ticks.}
+
+\item{drawarrow}{\code{TRUE} if north arrow should be drawn, \code{FALSE} otherwise}
+
+\item{arrow.pos}{Where to align the north arrow. One of "bottomleft", "bottomright", "topleft",
+or "topright".}
+
+\item{arrow.scale}{Scale the default north arrow to make it bigger or smaller}
+
+\item{arrow.padin}{A vector of length 2 determining the distance in inches between the scalebar
+and the edge of the plottable area.}
+
+\item{arrow.lwd}{The line width outlining the north arrow}
+
+\item{arrow.cols}{A vector of length 2 determining the two colors to be drawn for the north arrow}
+
+\item{arrow.border}{The line color outlining the north arrow}
+
+\item{arrow.text.col}{Color of the "N"}
 }
 \description{
-Plot A Pretty Map
+This function executes everything in \code{plotexpression}, then draws
+north arrow and scale bar using \link{northarrow} and \link{scalebar}.
+}
+\examples{
+prettymap(plot(1:5, 1:5, asp=1), scale.plotunit="cm", drawarrow=FALSE)
+\donttest{
+library(maptools)
+data(wrld_simpl)
+prettymap({plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3))
+           text(-62, 44, "Nova Scotia")
+           text(-63, 47, "PEI")}, arrow.scale=1.1)
+}
 }
 

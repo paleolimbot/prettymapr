@@ -1,13 +1,15 @@
 Package: prettymapr
 Type: Package
-Title: Pretty Mapping In R
-Version: 0.1.0.9000
-Date: 2015-10-08
+Title: Scale Bar, North Arrow, And Pretty Margins In R
+Version: 0.1.0
+Date: 2015-10-10
 Author: Dewey Dunnington <dewey@fishandwhistle.net>
 Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
-Description: More about what it does (maybe more than one line)
+Description: This package automates the process of creating a scale bar and north arrow in
+  any package that uses base graphics to plot in R. Bounding box tools help find and manipulate
+  extents. Finally there is a function to automate the process of setting margins, plotting
+  the map, scalebar, and north arrow, and resetting graphic parameters upon completion.
 License: GPL-2
 LazyData: TRUE
-Depends: sp
-Imports: rgdal
-Suggests: rcanvec, maptools, testthat
+Imports: sp, rgdal, digest, rjson
+Suggests: maptools, testthat

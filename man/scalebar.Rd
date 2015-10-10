@@ -55,10 +55,11 @@ draws a labelled scalebar.
 \examples{
 plot(1:5, 1:5, asp=1)
 scalebar(plotunit="m")
-
+\donttest{
 library(maptools)
 data(wrld_simpl)
 plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
 scalebar()
+}
 }
 

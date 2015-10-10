@@ -17,11 +17,12 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' library(maptools)
 #' data(wrld_simpl)
 #' plot(wrld_simpl)
 #' northarrow()
-#'
+#' }
 #' plot(1:5, 1:5, asp=1)
 #' northarrow()
 #'
@@ -35,9 +36,9 @@ northarrow <- function(pos="topright", padin=c(0.15, 0.15), scale=1, lwd=1, bord
   arrow2.x <- -1 * arrow1.x
   arrow2.y <- arrow1.y
 
-  htin <- 0.7 * scale
-  wdin <- 0.7 * scale
-  text.cex <- 1.5 * scale
+  htin <- 0.6 * scale
+  wdin <- 0.6 * scale
+  text.cex <- 1.25 * scale
 
   bottomin <- grconvertY(extents[3], from="user", to="inches")
   leftin <- grconvertX(extents[1], from="user", to="inches")
