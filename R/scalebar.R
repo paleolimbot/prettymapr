@@ -110,7 +110,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
   #params check
   if(!(unitcategory %in% c("metric", "imperial"))) stop("Unrecognized unitcategory: ", unitcategory)
 
-  extents <- par('usr')
+  extents <- graphics::par('usr')
   if(is.null(plotepsg) && is.null(plotunit)) {
     #check for valid lat/lon in extents
     if(extents[1] >= -180 &&
@@ -240,9 +240,9 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
   wd <- params$widthplotunit
   if(style=="bar") {
     cols <- rep(bar.cols, params$majordivs/(length(bar.cols))+1)
-    for(i in 1:params$majordivs) rect(x-adj[1]*wd+(i-1)*params$majordivplotunit, y-adj[2]*ht+ht,
-                                      x-adj[1]*wd+i*params$majordivplotunit, y-adj[2]*ht, col=cols[i],
-                                      lwd=lwd, border=linecol)
+    for(i in 1:params$majordivs) graphics::rect(x-adj[1]*wd+(i-1)*params$majordivplotunit, y-adj[2]*ht+ht,
+                                            x-adj[1]*wd+i*params$majordivplotunit, y-adj[2]*ht, col=cols[i],
+                                            lwd=lwd, border=linecol)
   } else if(style=="ticks") {
     outerx <- c(x-adj[1]*wd,
                 x-adj[1]*wd,
@@ -252,12 +252,12 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
                 y-adj[2]*ht,
                 y-adj[2]*ht,
                 y-adj[2]*ht+ht)
-    lines(outerx, outery, lwd=lwd, col=linecol)
+    graphics::lines(outerx, outery, lwd=lwd, col=linecol)
     for(i in 2:params$majordivs) {
       x1 <- x-adj[1]*wd+(i-1)*params$majordivplotunit
       y1 <- y-adj[2]*ht
       y2 <- y1+ht*tick.cex
-      lines(c(x1, x1), c(y1, y2), col=linecol, lwd=lwd)
+      graphics::lines(c(x1, x1), c(y1, y2), col=linecol, lwd=lwd)
     }
   } else {
     stop("Invalid style specified to drawscalebar: ", style)
@@ -314,38 +314,38 @@ scalebar <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory=
                            unitcategory=unitcategory)
   extents <- params$extents
 
-  bottomin <- grconvertY(extents[3], from="user", to="inches")
-  leftin <- grconvertX(extents[1], from="user", to="inches")
-  topin <- grconvertY(extents[4], from="user", to="inches")
-  rightin <- grconvertX(extents[2], from="user", to="inches")
+  bottomin <- graphics::grconvertY(extents[3], from="user", to="inches")
+  leftin <- graphics::grconvertX(extents[1], from="user", to="inches")
+  topin <- graphics::grconvertY(extents[4], from="user", to="inches")
+  rightin <- graphics::grconvertX(extents[2], from="user", to="inches")
 
-  ht <- grconvertY(bottomin+htin, from="inches", to="user") - extents[3]
-  paduser <- grconvertX(leftin+labelpadin, from="inches", to="user") - extents[1]
+  ht <- graphics::grconvertY(bottomin+htin, from="inches", to="user") - extents[3]
+  paduser <- graphics::grconvertX(leftin+labelpadin, from="inches", to="user") - extents[1]
 
   if(pos=="bottomleft") {
-    x <- grconvertX(leftin+padin[1], from="inches", to="user")
-    y <- grconvertY(bottomin+padin[2], from="inches", to="user")
+    x <- graphics::grconvertX(leftin+padin[1], from="inches", to="user")
+    y <- graphics::grconvertY(bottomin+padin[2], from="inches", to="user")
     adj <- c(0,0)
     textadj <- c(0,0.5)
     textx <- x+params$widthplotunit+paduser
     texty <- y+0.5*ht
   } else if(pos=="topleft") {
-    x <- grconvertX(leftin+padin[1], from="inches", to="user")
-    y <- grconvertY(topin-padin[2], from="inches", to="user")
+    x <- graphics::grconvertX(leftin+padin[1], from="inches", to="user")
+    y <- graphics::grconvertY(topin-padin[2], from="inches", to="user")
     adj <- c(0,1)
     textadj <- c(0, 0.5)
     textx <- x+params$widthplotunit+paduser
     texty <- y-0.5*ht
   } else if(pos=="topright") {
-    x <- grconvertX(rightin-padin[1], from="inches", to="user")
-    y <- grconvertY(topin-padin[2], from="inches", to="user")
+    x <- graphics::grconvertX(rightin-padin[1], from="inches", to="user")
+    y <- graphics::grconvertY(topin-padin[2], from="inches", to="user")
     adj <- c(1,1)
     textadj <- c(1, 0.5)
     textx <- x-params$widthplotunit-paduser
     texty <- y-0.5*ht
   } else if(pos=="bottomright") {
-    x <- grconvertX(rightin-padin[1], from="inches", to="user")
-    y <- grconvertY(bottomin+padin[2], from="inches", to="user")
+    x <- graphics::grconvertX(rightin-padin[1], from="inches", to="user")
+    y <- graphics::grconvertY(bottomin+padin[2], from="inches", to="user")
     adj <- c(1,0)
     textadj <- c(1, 0.5)
     textx <- x-params$widthplotunit-paduser
@@ -354,6 +354,6 @@ scalebar <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory=
 
   plotscalebar(x, y, ht, params, adj=adj, style=style, lwd=lwd, linecol=linecol,
                bar.cols=bar.cols, tick.cex=tick.cex)
-  text(textx, texty, params$labeltext, adj=textadj, cex=label.cex, col=label.col)
+  graphics::text(textx, texty, params$labeltext, adj=textadj, cex=label.cex, col=label.col)
 }
 

@@ -71,7 +71,7 @@ prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
                       drawarrow=TRUE, arrow.pos="topright", arrow.scale=1, arrow.padin=c(0.15, 0.15),
                       arrow.lwd=1, arrow.cols=c("white", "black"), arrow.border="black",
                       arrow.text.col="black") {
-  prevpars <- par(oma=oma, mai=mai)
+  prevpars <- graphics::par(oma=oma, mai=mai)
   tryCatch(expr={
     force(plotexpression)
     if(drawbox) box(lwd=box.lwd)
@@ -84,6 +84,6 @@ prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
                              cols=arrow.cols, border=arrow.border, text.col=arrow.text.col)
     }, error=function(e) {
     message(paste("Error occured while plotting: ", e))
-  }, finally={par(prevpars)})
+  }, finally={graphics::par(prevpars)})
 
 }
