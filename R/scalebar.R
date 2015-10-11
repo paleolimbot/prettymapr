@@ -103,7 +103,7 @@
 #' scalebarparams()
 #' }
 #'
-#' @seealso \link{scalebar}
+#' @seealso \link{addscalebar}
 #'
 #'
 scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric") {
@@ -216,7 +216,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
 #'
 #' Just in case anybody is hoping to draw a custom scalebar, this is the
 #' method used to plot it. If you don't know what this is, you should probably
-#' be using \link{scalebar}.
+#' be using \link{addscalebar}.
 #'
 #' @param x The position (user) to draw the scale bar
 #' @param y The position (user) to draw the scale bar
@@ -230,7 +230,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
 #' @param lwd Passed when drawing lines associated with the scalebar
 #' @param linecol Passed when drawing lines associated with the scalebar
 #'
-#' @seealso \link{scalebar}
+#' @seealso \link{addscalebar}
 #'
 #' @export
 #'
@@ -297,20 +297,20 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
 #'
 #' @examples
 #' plot(1:5, 1:5, asp=1)
-#' scalebar(plotunit="m")
+#' addscalebar(plotunit="m")
 #' \donttest{
 #' library(maptools)
 #' data(wrld_simpl)
 #' plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
-#' scalebar()
+#' addscalebar()
 #'
 #' #also works in non-lat/lon coordinate systems
-#' scalebar(plotepsg=3395) #specify plot is in mercator projection
-#' scalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
+#' addscalebar(plotepsg=3395) #specify plot is in mercator projection
+#' addscalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
 #'
 #' }
 #'
-scalebar <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric",
+addscalebar <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric",
                      htin=0.1, padin=c(0.15, 0.15), style="bar", bar.cols=c("black", "white"),
                      lwd=1, linecol="black", tick.cex=0.7, labelpadin=0.08, label.cex=0.8,
                      label.col="black", pos="bottomleft") {

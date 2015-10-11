@@ -91,7 +91,7 @@ and the edge of the plottable area.}
 }
 \description{
 This function executes everything in \code{plotexpression}, then draws
-north arrow and scale bar using \link{northarrow} and \link{scalebar}.
+north arrow and scale bar using \link{addnortharrow} and \link{addscalebar}.
 Specify that plot is in a non lat/lon projection by passing \code{scale.plotepsg=...}
 or \code{plotunit="m"}.
 }
@@ -105,8 +105,8 @@ prettymap({plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3))
            text(-63, 47, "PEI")}, arrow.scale=1.1)
 
 #also works in non-lat/lon coordinate systems
-scalebar(plotepsg=3395) #specify plot is in mercator projection
-scalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
+prettymap(plot(1:1000, 1:1000, asp=1),
+           scale.plotepsg=26920, drawarrow=FALSE) #specify plot is in UTM Zone 20N
 }
 }
 

@@ -47,6 +47,6 @@ scalebarparams()
 }
 }
 \seealso{
-\link{scalebar}
+\link{addscalebar}
 }
 

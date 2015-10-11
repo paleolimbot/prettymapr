@@ -4,7 +4,7 @@
 #' Plot A Pretty Map
 #'
 #' This function executes everything in \code{plotexpression}, then draws
-#' north arrow and scale bar using \link{northarrow} and \link{scalebar}.
+#' north arrow and scale bar using \link{addnortharrow} and \link{addscalebar}.
 #' Specify that plot is in a non lat/lon projection by passing \code{scale.plotepsg=...}
 #' or \code{plotunit="m"}.
 #'
@@ -63,8 +63,8 @@
 #'            text(-63, 47, "PEI")}, arrow.scale=1.1)
 #'
 #' #also works in non-lat/lon coordinate systems
-#' scalebar(plotepsg=3395) #specify plot is in mercator projection
-#' scalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
+#' prettymap(plot(1:1000, 1:1000, asp=1),
+#'            scale.plotepsg=26920, drawarrow=FALSE) #specify plot is in UTM Zone 20N
 #' }
 #'
 prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
@@ -81,12 +81,12 @@ prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
   tryCatch(expr={
     force(plotexpression)
     if(drawbox) graphics::box(lwd=box.lwd)
-    if(drawscale) scalebar(plotunit=scale.plotunit, pos=scale.pos, htin=scale.htin,
+    if(drawscale) addscalebar(plotunit=scale.plotunit, pos=scale.pos, htin=scale.htin,
                            widthhint=scale.widthhint, unitcategory=scale.unitcategory, style=scale.style,
                            bar.cols=scale.bar.cols, lwd=scale.lwd, linecol=scale.linecol,
                            padin=scale.padin, labelpadin=scale.labelpadin, label.cex=scale.label.cex,
                            label.col=scale.label.col, plotepsg=scale.plotepsg, tick.cex=scale.tick.cex)
-    if(drawarrow) northarrow(pos=arrow.pos, padin=arrow.padin, scale=arrow.scale, lwd=arrow.lwd,
+    if(drawarrow) addnortharrow(pos=arrow.pos, padin=arrow.padin, scale=arrow.scale, lwd=arrow.lwd,
                              cols=arrow.cols, border=arrow.border, text.col=arrow.text.col)
     }, error=function(e) {
     message(paste("Error occured while plotting: ", e))

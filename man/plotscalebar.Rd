@@ -33,9 +33,9 @@ style scalebar.}
 \description{
 Just in case anybody is hoping to draw a custom scalebar, this is the
 method used to plot it. If you don't know what this is, you should probably
-be using \link{scalebar}.
+be using \link{addscalebar}.
 }
 \seealso{
-\link{scalebar}
+\link{addscalebar}
 }
 

@@ -21,12 +21,12 @@
 #' library(maptools)
 #' data(wrld_simpl)
 #' plot(wrld_simpl)
-#' northarrow()
+#' addnortharrow()
 #' }
 #' plot(1:5, 1:5, asp=1)
-#' northarrow()
+#' addnortharrow()
 #'
-northarrow <- function(pos="topright", padin=c(0.15, 0.15), scale=1, lwd=1, border="black",
+addnortharrow <- function(pos="topright", padin=c(0.15, 0.15), scale=1, lwd=1, border="black",
                        cols=c("white", "black"), text.col="black") {
   extents <- graphics::par("usr")
 
