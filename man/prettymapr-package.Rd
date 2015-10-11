@@ -14,7 +14,7 @@ for lat/lon bounding box of human-readable names.
 \tabular{ll}{
 Package: \tab prettymapr\cr
 Type: \tab Package\cr
-Version: \tab 0.1.0\cr
+Version: \tab 0.1.2\cr
 Date: \tab 2015-10-10\cr
 License: \tab GPL-2\cr
 }
