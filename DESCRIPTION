@@ -12,6 +12,6 @@ Description: Automates the process of creating a scale bar and north arrow in
 License: GPL-2
 LazyData: TRUE
 Imports: sp, rgdal, digest, rjson
-Suggests: maptools, raster
+Suggests: maptools, raster, rosm
 URL: https://github.com/paleolimbot/prettymapr
 BugReports: https://github.com/paleolimbot/prettymapr/issues
