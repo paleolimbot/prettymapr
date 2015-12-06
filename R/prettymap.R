@@ -50,6 +50,7 @@
 #' @param arrow.border The line color outlining the north arrow
 #' @param arrow.cols A vector of length 2 determining the two colors to be drawn for the north arrow
 #' @param arrow.text.col Color of the "N"
+#' @param ... Further graphical parameters to set while executing plotting code
 #'
 #' @export
 #'
@@ -68,16 +69,16 @@
 #' }
 #'
 prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
-                      mai=c(0.1, 0.1, 0.1, 0.1), drawbox=TRUE, box.lwd=1,
+                      mai=c(0, 0, 0, 0), drawbox=FALSE, box.lwd=1,
                       drawscale=TRUE, scale.pos="bottomleft", scale.htin=0.1,
                       scale.widthhint=0.25, scale.unitcategory="metric", scale.style="bar",
                       scale.bar.cols=c("black", "white"), scale.lwd=1, scale.linecol="black",
                       scale.padin=c(0.15, 0.15), scale.labelpadin=0.08, scale.label.cex=0.8,
                       scale.label.col="black", scale.plotunit=NULL, scale.plotepsg=NULL, scale.tick.cex=0.8,
-                      drawarrow=TRUE, arrow.pos="topright", arrow.scale=1, arrow.padin=c(0.15, 0.15),
+                      drawarrow=FALSE, arrow.pos="topright", arrow.scale=1, arrow.padin=c(0.15, 0.15),
                       arrow.lwd=1, arrow.cols=c("white", "black"), arrow.border="black",
-                      arrow.text.col="black") {
-  prevpars <- graphics::par(oma=oma, mai=mai)
+                      arrow.text.col="black", ...) {
+  prevpars <- graphics::par(oma=oma, mai=mai, ...)
   tryCatch(expr={
     force(plotexpression)
     if(drawbox) graphics::box(lwd=box.lwd)
