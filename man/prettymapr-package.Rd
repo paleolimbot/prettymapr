@@ -26,7 +26,7 @@ Dewey Dunnington <dewey@fishandwhistle.net>
 
 \donttest{
 #bbox functions make it easy to manipulate bounding boxes
-wolfville <- searchbbox("wolfville ns")
+wolfville <- searchbbox("wolfville ns", source="google")
 wolfvillezoomedout <- zoombbox(wolfville, 0.5)
 
 #scalebar() makes it easy to add a scalebar to any map
