@@ -15,7 +15,7 @@ prettymap(plotexpression, oma = c(0, 0, 0, 0), mai = c(0, 0, 0, 0),
   scale.tick.cex = 0.8, drawarrow = FALSE, arrow.pos = "topright",
   arrow.scale = 1, arrow.padin = c(0.15, 0.15), arrow.lwd = 1,
   arrow.cols = c("white", "black"), arrow.border = "black",
-  arrow.text.col = "black", ...)
+  arrow.text.col = "black", title.text = NULL, ...)
 }
 \arguments{
 \item{plotexpression}{An expression to plot the map, can be in brackets. e.g.
@@ -88,6 +88,8 @@ and the edge of the plottable area.}
 \item{arrow.border}{The line color outlining the north arrow}
 
 \item{arrow.text.col}{Color of the "N"}
+
+\item{title.text}{Plot title, or \code{NULL} if none is desired.}
 
 \item{...}{Further graphical parameters to set while executing plotting code}
 }
