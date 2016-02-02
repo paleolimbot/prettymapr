@@ -125,7 +125,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
       plotepsg <- 4326
     } else {
       #else assume google mercator used by {OpenStreetMap} (epsg 3857)
-      warning("Audotdetect projection: assuming Google Mercator (epsg 3857")
+      warning("Audotdetect projection: assuming Google Mercator (epsg 3857)")
       plotepsg <- 3857
     }
   } else if(!is.null(plotunit)) {
