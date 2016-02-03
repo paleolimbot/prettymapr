@@ -50,13 +50,15 @@
 #' @param arrow.border The line color outlining the north arrow
 #' @param arrow.cols A vector of length 2 determining the two colors to be drawn for the north arrow
 #' @param arrow.text.col Color of the "N"
-#' @param title.text Plot title, or \code{NULL} if none is desired.
+#' @param title Plot title, or \code{NULL} if none is desired.
 #' @param ... Further graphical parameters to set while executing plotting code
 #'
 #' @export
 #'
 #' @examples
 #' prettymap(plot(1:5, 1:5, asp=1), scale.plotunit="cm", drawarrow=FALSE)
+#' #add a title
+#' prettymap(plot(1:5, 1:5, asp=1), title="My Plot")
 #' \donttest{
 #' library(maptools)
 #' data(wrld_simpl)
@@ -78,7 +80,7 @@ prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
                       scale.label.col="black", scale.plotunit=NULL, scale.plotepsg=NULL, scale.tick.cex=0.8,
                       drawarrow=FALSE, arrow.pos="topright", arrow.scale=1, arrow.padin=c(0.15, 0.15),
                       arrow.lwd=1, arrow.cols=c("white", "black"), arrow.border="black",
-                      arrow.text.col="black", title.text=NULL, ...) {
+                      arrow.text.col="black", title=NULL, ...) {
 
   prevpars <- graphics::par(oma=oma, mai=mai, ...)
   tryCatch(expr={
@@ -95,9 +97,9 @@ prettymap <- function(plotexpression, oma=c(0, 0, 0, 0),
     message(paste("Error occured while plotting: ", e))
   }, finally={graphics::par(prevpars)})
 
-  if(!is.null(title.text)) {
+  if(!is.null(title)) {
     prevpars <- graphics::par(mar=c(0,0,1,0))
-    title(title.text)
+    graphics::title(title)
     graphics::par(prevpars)
   }
 }

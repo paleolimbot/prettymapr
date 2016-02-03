@@ -41,7 +41,7 @@ A \code{list} or \code{data.frame}; see documentation for \code{output} argument
 \description{
 Geocode locations using the
 \href{https://developers.google.com/maps/documentation/geocoding/intro}{Google Web API} or
-the \href{http://www.pickpoint.io/}{PickPoint.io API}. Implemented
+the \href{https://pickpoint.io/}{PickPoint.io API}. Implemented
 from the \code{ggmap:geocode} function from the \code{ggmap}
 package (\url{https://cran.r-project.org/package=ggmap})
 by David Kahle

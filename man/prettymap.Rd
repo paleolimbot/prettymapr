@@ -15,7 +15,7 @@ prettymap(plotexpression, oma = c(0, 0, 0, 0), mai = c(0, 0, 0, 0),
   scale.tick.cex = 0.8, drawarrow = FALSE, arrow.pos = "topright",
   arrow.scale = 1, arrow.padin = c(0.15, 0.15), arrow.lwd = 1,
   arrow.cols = c("white", "black"), arrow.border = "black",
-  arrow.text.col = "black", title.text = NULL, ...)
+  arrow.text.col = "black", title = NULL, ...)
 }
 \arguments{
 \item{plotexpression}{An expression to plot the map, can be in brackets. e.g.
@@ -89,7 +89,7 @@ and the edge of the plottable area.}
 
 \item{arrow.text.col}{Color of the "N"}
 
-\item{title.text}{Plot title, or \code{NULL} if none is desired.}
+\item{title}{Plot title, or \code{NULL} if none is desired.}
 
 \item{...}{Further graphical parameters to set while executing plotting code}
 }
@@ -101,6 +101,8 @@ or \code{plotunit="m"}.
 }
 \examples{
 prettymap(plot(1:5, 1:5, asp=1), scale.plotunit="cm", drawarrow=FALSE)
+#add a title
+prettymap(plot(1:5, 1:5, asp=1), title="My Plot")
 \donttest{
 library(maptools)
 data(wrld_simpl)
