@@ -18,7 +18,7 @@ makebbox <- function(n, e, s, w) {
 
 #' Query The Interwebs For A Bounding Box
 #'
-#' Use the \href{http://www.pickpoint.io/}{PickPoint.io API} to
+#' Use the \href{https://pickpoint.io/}{PickPoint.io API} to
 #' retreive a bounding box for the given query. Implemented
 #' from the \code{ggmap:geocode} function from the \code{ggmap}
 #' package (\url{https://cran.r-project.org/package=ggmap})
