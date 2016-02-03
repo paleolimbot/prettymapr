@@ -23,10 +23,10 @@ Dewey Dunnington <dewey@fishandwhistle.net>
 }
 \keyword{ package }
 \examples{
-
+#dont test to cut down on check time
 \donttest{
 #bbox functions make it easy to manipulate bounding boxes
-wolfville <- searchbbox("wolfville ns", source="google")
+wolfville <- searchbbox("wolfville ns")
 wolfvillezoomedout <- zoombbox(wolfville, 0.5)
 
 #scalebar() makes it easy to add a scalebar to any map

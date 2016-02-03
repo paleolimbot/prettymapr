@@ -18,37 +18,46 @@ makebbox <- function(n, e, s, w) {
 
 #' Query The Interwebs For A Bounding Box
 #'
-#' Use the Data Science Toolkit (\url{http://www.datasciencetoolkit.org/about}) to
+#' Use the \href{http://www.pickpoint.io/}{PickPoint.io API} to
 #' retreive a bounding box for the given query. Implemented
 #' from the \code{ggmap:geocode} function from the \code{ggmap}
 #' package (\url{https://cran.r-project.org/package=ggmap})
 #' by David Kahle to remove dependencies
-#' of \code{ggmap} that are not necessary for \code{prettymapr}.
+#' of \code{ggmap} that are not necessary for \code{prettymapr}. Note that if
+#' you would like to use \code{google} as a source, you must agree to the Google
+#' API \href{https://developers.google.com/terms/}{terms and conditions}.
 #'
-#' @param querystring The search query
-#' @param source One of \code{dsk} or {google}
+#' @param querystring The search query.
+#' @param ... Additional paramters to be passed on to \link{geocode}. Passing \code{source="google"}
+#'   may be useful if google is desired as a source. Use \code{options(prettymapr.geosource="google")}
+#'   to permanently use \code{google} as a source.
 #' @return A 2x2 matrix describing a bounding box like that returned by \code{sp::bbox()}
 #'
 #' @examples
+#' #don't test to speed up checking time
 #' \donttest{
 #' searchbbox("kings county, NS")
-#' searchbbox("University Ave. Wolfville NS")
-#' searchbbox("Wolfville ns")
+#' searchbbox("University Ave. Wolfville NS", source="google")
+#' searchbbox("Wolfville ns", source="google")
+#' searchbbox(c("Vermont", "Nova Scotia"))
 #' }
 #'
 #' @export
 #'
-searchbbox <- function(querystring, source="dsk") {
-  out <- geocode(querystring, output="all", source=source)
-  if(out$status != "OK") stop("geocode returned with status ", out$status)
-  if(length(out$results) == 0) stop("No results found for query ", querystring)
-  if(length(out$results) > 1) warning("More than one result found, loading first result: ",
-                              out$results[[1]]$formatted_address)
+searchbbox <- function(querystring, ...) {
 
-  makebbox(out$results[[1]]$geometry$viewport$northeast$lat,
-            out$results[[1]]$geometry$viewport$northeast$lng,
-            out$results[[1]]$geometry$viewport$southwest$lat,
-            out$results[[1]]$geometry$viewport$southwest$lng)
+  d <- geocode(querystring, output="data.frame", limit=1, ...)
+  if(nrow(d) > 1) {
+    #"import" foreach
+    foreach <- foreach::foreach
+    `%do%` <- foreach::`%do%`
+    i<-NULL;rm(i) #trick CMD check
+    foreach(i=1:nrow(d)) %do% {
+      makebbox(d$bbox_n[i], d$bbox_e[i], d$bbox_s[i], d$bbox_w[i])
+    }
+  } else {
+    makebbox(d$bbox_n, d$bbox_e, d$bbox_s, d$bbox_w)
+  }
 }
 
 #' Zoom the extents of a bounding box
@@ -66,7 +75,7 @@ searchbbox <- function(querystring, source="dsk") {
 #'
 #' @examples
 #' \donttest{
-#' alta <- searchbbox("alta lake bc")
+#' alta <- searchbbox("alta lake bc", source="google")
 #' zoombbox(alta, c(.2,.5))
 #' }
 #' @export

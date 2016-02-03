@@ -2,6 +2,7 @@
 
 export(addnortharrow)
 export(addscalebar)
+export(geocode)
 export(makebbox)
 export(plotscalebar)
 export(prettymap)

@@ -25,7 +25,7 @@ plot created by \code{canvec.qplot()}
 }
 \examples{
 \donttest{
-alta <- searchbbox("alta lake bc")
+alta <- searchbbox("alta lake bc", source="google")
 zoombbox(alta, c(.2,.5))
 }
 }
