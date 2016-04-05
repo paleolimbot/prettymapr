@@ -7,7 +7,8 @@
 searchbbox(querystring, ...)
 }
 \arguments{
-\item{querystring}{The search query.}
+\item{querystring}{The search query. Passing a vector in will find the bounding box that contains
+all bounding boxes returned.}
 
 \item{...}{Additional paramters to be passed on to \link{geocode}. Passing \code{source="google"}
 may be useful if google is desired as a source. Use \code{options(prettymapr.geosource="google")}
@@ -17,12 +18,8 @@ to permanently use \code{google} as a source.}
 A 2x2 matrix describing a bounding box like that returned by \code{sp::bbox()}
 }
 \description{
-Use the \href{https://pickpoint.io/}{PickPoint.io API} to
-retreive a bounding box for the given query. Implemented
-from the \code{ggmap:geocode} function from the \code{ggmap}
-package (\url{https://cran.r-project.org/package=ggmap})
-by David Kahle to remove dependencies
-of \code{ggmap} that are not necessary for \code{prettymapr}. Note that if
+Use the \href{https://pickpoint.io/}{PickPoint.io API} or Google API to
+retreive a bounding box for the given query. Note that if
 you would like to use \code{google} as a source, you must agree to the Google
 API \href{https://developers.google.com/terms/}{terms and conditions}.
 }

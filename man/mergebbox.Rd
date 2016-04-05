@@ -11,7 +11,7 @@ mergebbox(...)
 \link{makebbox} or \link{searchbbox}}
 }
 \value{
-A single bounding box
+A single bounding box that contains all of its arguments.
 }
 \description{
 Create a single bounding box that encloses each bounding box.

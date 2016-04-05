@@ -18,16 +18,13 @@ makebbox <- function(n, e, s, w) {
 
 #' Query The Interwebs For A Bounding Box
 #'
-#' Use the \href{https://pickpoint.io/}{PickPoint.io API} to
-#' retreive a bounding box for the given query. Implemented
-#' from the \code{ggmap:geocode} function from the \code{ggmap}
-#' package (\url{https://cran.r-project.org/package=ggmap})
-#' by David Kahle to remove dependencies
-#' of \code{ggmap} that are not necessary for \code{prettymapr}. Note that if
+#' Use the \href{https://pickpoint.io/}{PickPoint.io API} or Google API to
+#' retreive a bounding box for the given query. Note that if
 #' you would like to use \code{google} as a source, you must agree to the Google
 #' API \href{https://developers.google.com/terms/}{terms and conditions}.
 #'
-#' @param querystring The search query.
+#' @param querystring The search query. Passing a vector in will find the bounding box that contains
+#'                    all bounding boxes returned.
 #' @param ... Additional paramters to be passed on to \link{geocode}. Passing \code{source="google"}
 #'   may be useful if google is desired as a source. Use \code{options(prettymapr.geosource="google")}
 #'   to permanently use \code{google} as a source.
@@ -48,13 +45,7 @@ searchbbox <- function(querystring, ...) {
 
   d <- geocode(querystring, output="data.frame", limit=1, ...)
   if(nrow(d) > 1) {
-    #"import" foreach
-    foreach <- foreach::foreach
-    `%do%` <- foreach::`%do%`
-    i<-NULL;rm(i) #trick CMD check
-    foreach(i=1:nrow(d)) %do% {
-      makebbox(d$bbox_n[i], d$bbox_e[i], d$bbox_s[i], d$bbox_w[i])
-    }
+    makebbox(max(d$bbox_n), max(d$bbox_e), min(d$bbox_s), min(d$bbox_w))
   } else {
     makebbox(d$bbox_n, d$bbox_e, d$bbox_s, d$bbox_w)
   }
@@ -118,9 +109,5 @@ zoombbox <- function(bbox, factor=1, offset=c(0,0)) {
 #' mergebbox(box1, box2, box3)
 #'
 mergebbox <- function(...) {
-  boxes <- list(...)
-  makebbox(max(sapply(boxes, function(box) box[2,2])),
-           max(sapply(boxes, function(box) box[1,2])),
-           min(sapply(boxes, function(box) box[2,1])),
-           min(sapply(boxes, function(box) box[1,1])))
+  sp::bbox(sp::coordinates(t(cbind(...))))
 }
