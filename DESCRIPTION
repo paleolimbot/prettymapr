@@ -6,12 +6,22 @@ Date: 2016-02-02
 Author: Dewey Dunnington <dewey@fishandwhistle.net>
 Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
 Description: Automates the process of creating a scale bar and north arrow in
-  any package that uses base graphics to plot in R. Bounding box tools help find and manipulate
-  extents. Finally, there is a function to automate the process of setting margins, plotting
-  the map, scale bar, and north arrow, and resetting graphic parameters upon completion.
+    any package that uses base graphics to plot in R. Bounding box tools help find
+    and manipulate extents. Finally, there is a function to automate the process
+    of setting margins, plotting the map, scale bar, and north arrow, and resetting
+    graphic parameters upon completion.
 License: GPL-2
 LazyData: TRUE
-Imports: sp, rgdal, digest, rjson, foreach
-Suggests: maptools, raster, rosm
+Imports:
+    sp,
+    rgdal,
+    digest,
+    rjson,
+    foreach
+Suggests:
+    maptools,
+    raster,
+    rosm
 URL: https://github.com/paleolimbot/prettymapr
 BugReports: https://github.com/paleolimbot/prettymapr/issues
+RoxygenNote: 5.0.1
