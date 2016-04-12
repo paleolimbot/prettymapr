@@ -32,7 +32,13 @@ It is, of course, easier to search for bounding boxes by human-readable location
 searchbbox("alta lake, british columbia")
 ```
 
-And, if you don't care to modify the values yourself, you can use `zoombbox()` to zoom in or out.
+If you pass a vector into `searchbbox()` it will return the bounding box that contains all of them.
+
+```{r, message=FALSE}
+searchbbox(c("halifax, ns", "moncton, nb", "wolfville, ns"))
+```
+
+And, if you don't care to modify the values yourself to zoom in or out, you can use `zoombbox()`.
 
 ```{r}
 bb <- makebbox(50.1232, -122.9574, 50.1035, -123.0042)

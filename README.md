@@ -34,7 +34,17 @@ searchbbox("alta lake, british columbia")
     ## x -123.00891 -122.96891
     ## y   50.08865   50.12865
 
-And, if you don't care to modify the values yourself, you can use `zoombbox()` to zoom in or out.
+If you pass a vector into `searchbbox()` it will return the bounding box that contains all of them.
+
+``` r
+searchbbox(c("halifax, ns", "moncton, nb", "wolfville, ns"))
+```
+
+    ##         min       max
+    ## x -64.91537 -63.41497
+    ## y  44.48842  46.17745
+
+And, if you don't care to modify the values yourself to zoom in or out, you can use `zoombbox()`.
 
 ``` r
 bb <- makebbox(50.1232, -122.9574, 50.1035, -123.0042)
@@ -81,7 +91,7 @@ library(rosm)
 prettymap(osm.plot(searchbbox("nova scotia")))
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 Any plotting code has to go within `prettymap()`, so if you need multiple lines you can enclose them in curly brackets (`{}`). There's tons of options for `prettymap()` that let you customize the north arrow, scale bar etc., which you can find in the [{prettymapr} manual](https://cran.r-project.org/web/packages/prettymapr/prettymapr.pdf).
 
@@ -93,7 +103,7 @@ prettymap({
 })
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 Any plotting code that uses base plotting can be used inside `prettymap()`, including [rosm](https://cran.r-project.org/package=rosm), [rcanvec](https://cran.r-project.org/package=rcanvec), [OpenStreetMap](https://cran.r-project.org/package=OpenStreetMap), [cartography](https://cran.r-project.org/package=cartography), [marmap](https://cran.r-project.org/package=marmap), and others. If only a scale bar or north arrow are required, there are independent functions to add to existing code.
 
@@ -105,6 +115,6 @@ addscalebar()
 addnortharrow()
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 That's it for now! More convenience functions on the way...
