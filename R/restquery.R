@@ -19,8 +19,10 @@ restquery <- function(.endpoint, ..., .cache=NA, .parser=identity, .quiet=FALSE,
                       .encoding=NULL) {
   # verify search params
   searchparams <- list(...)
-  if(is.null(names(searchparams))) stop("restquery takes only named arguments")
-  if(any(nchar(names(searchparams)) == 0)) stop("restquery takes only named arguments")
+  if(length(list) > 0) { # empty list is ok
+    if(is.null(names(searchparams))) stop("restquery takes only named arguments")
+    if(any(nchar(names(searchparams)) == 0)) stop("restquery takes only named arguments")
+  }
 
   # get cache
   .cache <- as.cache(.cache)

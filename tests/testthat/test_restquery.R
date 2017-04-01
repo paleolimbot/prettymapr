@@ -51,3 +51,8 @@ test_that("rest query uses the correct cache", {
 
   unlink("prettymapr.cache", recursive = TRUE)
 })
+
+test_that("zero arguments will still fetch a result", {
+  res <- restquery("http://www.google.com/")
+  expect_false(is.null(res))
+})
