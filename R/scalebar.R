@@ -112,7 +112,7 @@
 #'
 #'
 scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric",
-                           extents = par("usr")) {
+                           extents = graphics::par("usr")) {
   # params check
   if(!(unitcategory %in% c("metric", "imperial"))) stop("Unrecognized unitcategory: ", unitcategory)
 
@@ -126,11 +126,11 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
        extents[3] <= 90 &&
        extents[4] >= -90 &&
        extents[4 <= 90]) {
-      warning("Autodetect projection: assuming lat/lon (epsg 4326)")
+      message("Autodetect projection: assuming lat/lon (epsg 4326)")
       plotepsg <- 4326
     } else {
       #else assume google mercator used by {OpenStreetMap} (epsg 3857)
-      warning("Audotdetect projection: assuming Google Mercator (epsg 3857)")
+      message("Audotdetect projection: assuming Google Mercator (epsg 3857)")
       plotepsg <- 3857
     }
   } else if(!is.null(plotunit)) {
