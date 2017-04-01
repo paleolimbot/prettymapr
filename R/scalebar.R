@@ -1,5 +1,3 @@
-#scalebar
-
 
 # Calculates the geodesic distance between two points specified by radian latitude/longitude using the
 # Haversine formula (hf) from: http://www.r-bloggers.com/great-circle-distance-calculations-in-r/
@@ -8,7 +6,13 @@
 }
 
 .tolatlon <- function(x, y, epsg) {
-  rgdal::CRSargs(sp::CRS(paste0("+init=epsg:", epsg))) #hack to make sure rgdal stays in Imports:
+  # for lat/lon coordaintes just return x and y
+  if(epsg == 4326) return(cbind(x, y))
+
+  # require gdal for actual projections
+  if(!requireNamespace("sp")) stop("package 'sp' is required for non lat/lon coordinates")
+  if(!requireNamespace("rgdal")) stop("package 'rgdal' is required for non lat/lon coordinates")
+
   coords <- sp::coordinates(matrix(c(x,y), byrow=TRUE, ncol=2))
   spoints <- sp::SpatialPoints(coords, sp::CRS(paste0("+init=epsg:", epsg)))
   spnew <- sp::spTransform(spoints, sp::CRS("+init=epsg:4326"))
@@ -76,6 +80,7 @@
 #' scale bar to be drawn. The only way to manipulate the values chosen by the algorithm
 #' is to change the \code{widthhint} argument. For generic XY plots, pass \code{plotunit}.
 #'
+#' @param extents The plot extents
 #' @param plotunit The unit which the current plot is plotted in, one of \code{cm},
 #' \code{m}, \code{km}, \code{in}, \code{ft}, \code{mi}. or \code{latlon}. This
 #' parameter is optional if \code{plotepsg} is passed.
@@ -99,18 +104,18 @@
 #' \donttest{
 #' library(maptools)
 #' data(wrld_simpl)
-#' plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
+#' plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) # Nova Scotia
 #' scalebarparams()
 #' }
 #'
 #' @seealso \link{addscalebar}
 #'
 #'
-scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric") {
-  #params check
+scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcategory="metric",
+                           extents = par("usr")) {
+  # params check
   if(!(unitcategory %in% c("metric", "imperial"))) stop("Unrecognized unitcategory: ", unitcategory)
 
-  extents <- graphics::par('usr')
   if(is.null(plotepsg) && is.null(plotunit)) {
     #check for valid lat/lon in extents
     if(extents[1] >= -180 &&
@@ -141,7 +146,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
     widthtop <- .geodist(extents[1], extents[4], extents[2], extents[4], plotepsg)
     percentdiff <- (max(widthbottom, widthmiddle, widthtop) -
                       min(widthbottom, widthmiddle, widthtop)) / min(widthbottom, widthmiddle, widthtop)
-    if(percentdiff > .05) warning("Scale on map varies by more than 5%, scalebar may be inaccurate")
+    if(percentdiff > .05) message("Scale on map varies by more than 5%, scalebar may be inaccurate")
     widthm <- widthmiddle
     mperplotunit <- widthmiddle/(extents[2]-extents[1])
   } else {
@@ -240,9 +245,11 @@ plotscalebar <- function(x, y, ht, params, style="bar", adj=c(0,0), tick.cex=0.7
   wd <- params$widthplotunit
   if(style=="bar") {
     cols <- rep(bar.cols, params$majordivs/(length(bar.cols))+1)
-    for(i in 1:params$majordivs) graphics::rect(x-adj[1]*wd+(i-1)*params$majordivplotunit, y-adj[2]*ht+ht,
-                                            x-adj[1]*wd+i*params$majordivplotunit, y-adj[2]*ht, col=cols[i],
-                                            lwd=lwd, border=linecol)
+    for(i in 1:params$majordivs) {
+      graphics::rect(x-adj[1]*wd+(i-1)*params$majordivplotunit, y-adj[2]*ht+ht,
+                     x-adj[1]*wd+i*params$majordivplotunit, y-adj[2]*ht, col=cols[i],
+                     lwd=lwd, border=linecol)
+    }
   } else if(style=="ticks") {
     outerx <- c(x-adj[1]*wd,
                 x-adj[1]*wd,

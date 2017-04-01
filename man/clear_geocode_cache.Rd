@@ -4,17 +4,20 @@
 \alias{clear_geocode_cache}
 \title{Clear cached results}
 \usage{
-clear_geocode_cache(cache = NA, ...)
+clear_geocode_cache(cache = NA)
 }
 \arguments{
-\item{cache}{A folder name where cached files should be stored.}
+\item{cache}{An environment, a directory name, or NA to clear
+the default internal cache}
 }
 \description{
-Clears the local cache of downloaded files (by default in the
-rest.cache folder in the working directory).
+Clears the local cache of downloaded files (by default, an
+environment in the package namespace). Clearing a directory
+cache will result in all files with the extention ".cached"
+being deleted from that directory.
 }
 \examples{
-clear_rest_cache()
+clear_geocode_cache()
 
 }
 

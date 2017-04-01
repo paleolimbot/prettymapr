@@ -5,25 +5,31 @@
 \title{Geocode Locations}
 \usage{
 geocode(location, output = c("data.frame", "list"), source = "default",
-  messaging = FALSE, limit = 1, key = NULL, quiet = TRUE, ...)
+  messaging = NULL, limit = 1, key = NULL, quiet = TRUE, cache = NA,
+  ...)
 }
 \arguments{
-\item{location}{A character vector of locations to pass to the geocoding API.}
+\item{location}{A character vector (or an object that can be coerced to one)
+of locations to pass to the geocoding API.}
 
 \item{output}{One of \code{data.frame} or \code{list}. If \code{data.frame},
 the results are distilled into columns: query, source, status, rank,
-address, lon, lat, bbox_n, bbox_e, bbox_s, bbox_w, and id. If \code{list},
+lon, lat, address, bbox_n, bbox_e, bbox_s, and bbox_w. Other columns may also exist
+for certain API types. The data frame will have the same number of rows as the
+length of the input vector, and will always have the columns query, source, status,
+lon and lat. If \code{output='list'},
 the raw JSON output from the geocoding API is returned as a \code{list}
-(containing lists). The output of a failed geocode return will always have
-a \code{$status} attribute describing the failure.}
+(containing lists). The list output of a failed geocode return varies by API type,
+but the length of the output list is guaranteed to be the same as the input vector.}
 
-\item{source}{One of "default", "google" or "pickpoint". If "default", the
-function calls \code{options("prettymapr.geosource")} or chooses
+\item{source}{One of "default", "google", "pickpoint", or "dsk". If "default", the
+function calls \code{getOption("prettymapr.geosource")} or chooses
 "pickpoint" if none is set. If using "pickpoint", please
 \href{https://pickpoint.io/users/sign_up}{sign up for your own (free) API
 key} to avoid using the default excessively.}
 
-\item{messaging}{\code{TRUE} if verbose messaging is desired.}
+\item{messaging}{\code{TRUE} if verbose messaging is desired (now deprecated,
+use 'quiet = FALSE' instead.}
 
 \item{limit}{The number of results to return per query. This refers to
 individual locations, for which ambiguous queries may return multiple
@@ -32,12 +38,18 @@ default is 1. Pass 0 if no limit on queries is desired.}
 
 \item{key}{API key if \code{source="pickpoint"}.}
 
+\item{quiet}{By default, error messages are suppressed, and are instead included in the
+output as objects of class try-error (list output) or the appropriate value in the
+'status' column (data frame output).}
+
+\item{cache}{The cache to use. Use NA for the internal cache (keeps first 1000 results),
+or a directory name (e.g. 'geo.cache'), which keeps an unlimited number of results. Use
+\link{clear_geocode_cache} to clear the cache.}
+
 \item{...}{A number of key/value pairs to append to the URL, specifying
 further options specific to each API. Google users may wish to provide
-\code{client} and \code{signature} arguments for use with the enterprise
-version with the API, or specify additional constraints on geocoding.}
-
-\item{sensor}{\code{TRUE} if the location is generated from a sensor.}
+\code{sensor}, \code{client} and \code{signature} arguments for use with the enterprise
+version with the API, or to specify additional constraints on geocoding.}
 }
 \value{
 A \code{list} or \code{data.frame}; see documentation for
@@ -46,9 +58,13 @@ A \code{list} or \code{data.frame}; see documentation for
 \description{
 Geocode locations using the
 \href{https://developers.google.com/maps/documentation/geocoding/intro}{Google
-Web API} or the \href{https://pickpoint.io/}{PickPoint.io API}. Implemented
-from the \code{ggmap:geocode} function from the \code{ggmap} package
-(\url{https://cran.r-project.org/package=ggmap}) by David Kahle
+Web API}, the \href{https://pickpoint.io/}{PickPoint.io API}, or the
+\href{http://www.datasciencetoolkit.org/}{Data Science Toolkit API}. For large
+requests you should really use your own API key if you are using the default (pickpoint).
+Note that the Google Terms seem to indicate that you cannot place locations obtained
+from their API on non-google maps. Locations are all geocoded with erorrs kept quiet,
+which may result in list output containing items of class 'try-error', or data frame
+output containing a non-OK status in the status column.
 }
 \examples{
 # don't test to speed up checking time

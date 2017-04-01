@@ -2,19 +2,27 @@
 #'
 #' Geocode locations using the
 #' \href{https://developers.google.com/maps/documentation/geocoding/intro}{Google
-#' Web API} or the \href{https://pickpoint.io/}{PickPoint.io API}. Implemented
-#' from the \code{ggmap:geocode} function from the \code{ggmap} package
-#' (\url{https://cran.r-project.org/package=ggmap}) by David Kahle
+#' Web API}, the \href{https://pickpoint.io/}{PickPoint.io API}, or the
+#' \href{http://www.datasciencetoolkit.org/}{Data Science Toolkit API}. For large
+#' requests you should really use your own API key if you are using the default (pickpoint).
+#' Note that the Google Terms seem to indicate that you cannot place locations obtained
+#' from their API on non-google maps. Locations are all geocoded with erorrs kept quiet,
+#' which may result in list output containing items of class 'try-error', or data frame
+#' output containing a non-OK status in the status column.
 #'
-#' @param location A character vector of locations to pass to the geocoding API.
+#' @param location A character vector (or an object that can be coerced to one)
+#'   of locations to pass to the geocoding API.
 #' @param output One of \code{data.frame} or \code{list}. If \code{data.frame},
 #'   the results are distilled into columns: query, source, status, rank,
-#'   address, lon, lat, bbox_n, bbox_e, bbox_s, bbox_w, and id. If \code{list},
+#'   lon, lat, address, bbox_n, bbox_e, bbox_s, and bbox_w. Other columns may also exist
+#'   for certain API types. The data frame will have the same number of rows as the
+#'   length of the input vector, and will always have the columns query, source, status,
+#'   lon and lat. If \code{output='list'},
 #'   the raw JSON output from the geocoding API is returned as a \code{list}
-#'   (containing lists). The output of a failed geocode return will always have
-#'   a \code{$status} attribute describing the failure.
-#' @param source One of "default", "google" or "pickpoint". If "default", the
-#'   function calls \code{options("prettymapr.geosource")} or chooses
+#'   (containing lists). The list output of a failed geocode return varies by API type,
+#'   but the length of the output list is guaranteed to be the same as the input vector.
+#' @param source One of "default", "google", "pickpoint", or "dsk". If "default", the
+#'   function calls \code{getOption("prettymapr.geosource")} or chooses
 #'   "pickpoint" if none is set. If using "pickpoint", please
 #'   \href{https://pickpoint.io/users/sign_up}{sign up for your own (free) API
 #'   key} to avoid using the default excessively.
@@ -25,11 +33,16 @@
 #'   results (e.g. Halifax, Nova Scotia; Halifax, United Kingdom, etc.). The
 #'   default is 1. Pass 0 if no limit on queries is desired.
 #' @param key API key if \code{source="pickpoint"}.
-#' @param sensor \code{TRUE} if the location is generated from a sensor.
+#' @param cache The cache to use. Use NA for the internal cache (keeps first 1000 results),
+#'   or a directory name (e.g. 'geo.cache'), which keeps an unlimited number of results. Use
+#'   \link{clear_geocode_cache} to clear the cache.
+#' @param quiet By default, error messages are suppressed, and are instead included in the
+#'   output as objects of class try-error (list output) or the appropriate value in the
+#'   'status' column (data frame output).
 #' @param ... A number of key/value pairs to append to the URL, specifying
 #'   further options specific to each API. Google users may wish to provide
-#'   \code{client} and \code{signature} arguments for use with the enterprise
-#'   version with the API, or specify additional constraints on geocoding.
+#'   \code{sensor}, \code{client} and \code{signature} arguments for use with the enterprise
+#'   version with the API, or to specify additional constraints on geocoding.
 #'
 #' @return A \code{list} or \code{data.frame}; see documentation for
 #'   \code{output} argument.
@@ -51,7 +64,8 @@
 #' }
 #'
 geocode <- function(location, output=c("data.frame", "list"), source = "default",
-                    messaging = NULL, limit=1, key=NULL, quiet = TRUE, ...) {
+                    messaging = NULL, limit=1, key=NULL, quiet = TRUE, cache = NA,
+                    ...) {
   # output ban be "list" or "data.frame"
   output <- match.arg(output)
 
@@ -129,8 +143,9 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
     # setup default data frame, which sets the template and column order for
     # results
     df <- data.frame(query = location, source = source, rank = NA_integer_,
-                     lon = NA_real_, lat = NA_real_,
-                     stringsAsFactors = FALSE)
+                     lon = NA_real_, lat = NA_real_, address = NA_character_,
+                     bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
+                     bbox_w = NA_real_, stringsAsFactors = FALSE)
 
     df <- plyr::adply(df, 1, function(row) geocoder_partial(row$query))
     # ensure column output order
@@ -289,7 +304,9 @@ result_error <- function(error, output) {
     list(status = error)
   } else {
     data.frame(status = error, rank = NA_integer_,
-               lon = NA_real_, lat = NA_real_, stringsAsFactors = FALSE)
+               lon = NA_real_, lat = NA_real_,  address = NA_character_,
+               bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
+               bbox_w = NA_real_, stringsAsFactors = FALSE)
   }
 }
 
@@ -304,7 +321,9 @@ result_zero_length <- function(output) {
 result_empty <- function(location, output) {
   if(output == "data.frame") {
     data.frame(query = location, status = "empty input", source = NA_character_,
-               rank = NA_integer_, lon = NA_real_, lat = NA_real_,
+               rank = NA_integer_, lon = NA_real_, lat = NA_real_, address = NA_character_,
+               bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
+               bbox_w = NA_real_,
                stringsAsFactors = FALSE)
   } else {
     list(NULL)

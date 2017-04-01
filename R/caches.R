@@ -1,19 +1,22 @@
 
 #' Clear cached results
 #'
-#' Clears the local cache of downloaded files (by default in the
-#' rest.cache folder in the working directory).
+#' Clears the local cache of downloaded files (by default, an
+#' environment in the package namespace). Clearing a directory
+#' cache will result in all files with the extention ".cached"
+#' being deleted from that directory.
 #'
-#' @param cache A folder name where cached files should be stored.
+#' @param cache An environment, a directory name, or NA to clear
+#'  the default internal cache
 #'
 #' @export
 #'
 #' @examples
-#' clear_rest_cache()
+#' clear_geocode_cache()
 #'
-clear_geocode_cache <- function(cache = NA, ...) {
+clear_geocode_cache <- function(cache = NA) {
   cache <- as.cache(cache)
-  clear_cache(cache, ...)
+  clear_cache(cache)
 }
 
 file_cache <- function(directory, max_size = Inf, ...) {

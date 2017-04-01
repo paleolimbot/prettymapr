@@ -5,7 +5,7 @@
 \title{Get Scale Bar Parameters}
 \usage{
 scalebarparams(plotunit = NULL, plotepsg = NULL, widthhint = 0.25,
-  unitcategory = "metric")
+  unitcategory = "metric", extents = par("usr"))
 }
 \arguments{
 \item{plotunit}{The unit which the current plot is plotted in, one of \code{cm},
@@ -20,6 +20,8 @@ the projection is assumed to be lat/lon (EPSG:4326), or Spherical Mercator other
 (mostly) occupy.}
 
 \item{unitcategory}{One of "metric" or "imperial"}
+
+\item{extents}{The plot extents}
 }
 \value{
 a \code{list} of parameters: \code{$widthu} (width of the scalebar in human
@@ -42,7 +44,7 @@ scalebarparams(plotunit="m")
 \donttest{
 library(maptools)
 data(wrld_simpl)
-plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) #Nova Scotia
+plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3)) # Nova Scotia
 scalebarparams()
 }
 

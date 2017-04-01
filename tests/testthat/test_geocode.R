@@ -61,7 +61,8 @@ test_that("emptys and nulls produce the correct output", {
   expect_identical(listNA, geocode("", output = "list"))
 
   # check that the correct columns are returned for empty results
-  expect_equal(c("query", "status", "source", "rank", "lon", "lat"), names(dfNA))
+  expect_equal(c("query", "status", "source", "rank", "lon", "lat", "address",
+                 "bbox_n", "bbox_e", "bbox_s", "bbox_w"), names(dfNA))
 })
 
 test_that("output is vectorized with correct lengths", {

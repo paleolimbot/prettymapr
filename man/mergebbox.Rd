@@ -14,10 +14,9 @@ mergebbox(...)
 A single bounding box that contains all of its arguments.
 }
 \description{
-Create a single bounding box that encloses each bounding box.
+Create a single bounding box that encloses all of the bounding boxes.
 }
 \examples{
-library(prettymapr)
 box1 <- searchbbox("wolfville, ns")
 box2 <- searchbbox("halifax, ns")
 box3 <- searchbbox("kentville, ns")
