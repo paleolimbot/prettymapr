@@ -1,4 +1,6 @@
 
+context("restquery")
+
 test_that("rest query caches results", {
 
   # test on goodreads / file cache
@@ -55,4 +57,19 @@ test_that("rest query uses the correct cache", {
 test_that("zero arguments will still fetch a result", {
   res <- restquery("http://www.google.com/")
   expect_false(is.null(res))
+})
+
+test_that("null parameters are dropped from url", {
+  expect_message(restquery("http://www.google.com/", q = NULL),
+                 "http://www.google.com/\\s$")
+})
+
+test_that("NA parameters are converted to ''", {
+  expect_message(restquery("http://www.google.com/", q = NA),
+                 "Coercing an NA query parameter to")
+})
+
+test_that("invalid addresses result in errors", {
+  expect_error(restquery("http://not.an.address.ever"),
+               "Unable to connect to http://not.an.address.ever/")
 })

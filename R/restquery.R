@@ -19,7 +19,7 @@ restquery <- function(.endpoint, ..., .cache=NA, .parser=identity, .quiet=FALSE,
                       .encoding=NULL) {
   # verify search params
   searchparams <- list(...)
-  if(length(list) > 0) { # empty list is ok
+  if(length(searchparams) > 0) { # empty list is ok
     if(is.null(names(searchparams))) stop("restquery takes only named arguments")
     if(any(nchar(names(searchparams)) == 0)) stop("restquery takes only named arguments")
   }
@@ -30,7 +30,6 @@ restquery <- function(.endpoint, ..., .cache=NA, .parser=identity, .quiet=FALSE,
   # characterify input values, messaging user for NULLs and NAs
   searchparams <- lapply(searchparams, function(x) {
     if(is.null(x)) {
-      message('Removing NULL query parameter')
       NULL
     } else if(is.na(x)) {
       message('Coercing an NA query parameter to ""')
@@ -45,9 +44,11 @@ restquery <- function(.endpoint, ..., .cache=NA, .parser=identity, .quiet=FALSE,
 
   # set query params
   purl <- httr::parse_url(.endpoint)
-  searchparams <- c(purl$query, searchparams)
-  # name sorting ensure consistent hashing
-  purl$query <- searchparams[sort(names(searchparams))]
+  if(length(searchparams) > 0) {
+    searchparams <- c(purl$query, searchparams)
+    # name sorting ensure consistent hashing
+    purl$query <- searchparams[sort(names(searchparams))]
+  }
 
   # build URL
   url_string <- httr::build_url(purl)
