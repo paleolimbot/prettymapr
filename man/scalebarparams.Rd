@@ -5,7 +5,7 @@
 \title{Get Scale Bar Parameters}
 \usage{
 scalebarparams(plotunit = NULL, plotepsg = NULL, widthhint = 0.25,
-  unitcategory = "metric", extents = par("usr"))
+  unitcategory = "metric", extents = graphics::par("usr"))
 }
 \arguments{
 \item{plotunit}{The unit which the current plot is plotted in, one of \code{cm},
