@@ -2,6 +2,7 @@
 
 export(addnortharrow)
 export(addscalebar)
+export(clear_geocode_cache)
 export(geocode)
 export(makebbox)
 export(mergebbox)
