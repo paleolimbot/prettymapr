@@ -5,49 +5,53 @@
 \title{Geocode Locations}
 \usage{
 geocode(location, output = c("data.frame", "list"), source = "default",
-  messaging = FALSE, limit = 1, key = NULL, sensor = FALSE, ...)
+  messaging = FALSE, limit = 1, key = NULL, quiet = TRUE, ...)
 }
 \arguments{
 \item{location}{A character vector of locations to pass to the geocoding API.}
 
 \item{output}{One of \code{data.frame} or \code{list}. If \code{data.frame},
-the results are distilled into columns: query, source, status, rank, address, lon, lat, bbox_n,
-bbox_e, bbox_s, bbox_w, and id. If \code{list}, the raw JSON output from the geocoding API
-is returned as a \code{list} (containing lists). The output of a failed geocode return will
-always have a \code{$status} attribute describing the failure.}
+the results are distilled into columns: query, source, status, rank,
+address, lon, lat, bbox_n, bbox_e, bbox_s, bbox_w, and id. If \code{list},
+the raw JSON output from the geocoding API is returned as a \code{list}
+(containing lists). The output of a failed geocode return will always have
+a \code{$status} attribute describing the failure.}
 
-\item{source}{One of "default", "google" or "pickpoint". If "default", the function
-calls \code{options("prettymapr.geosource")} or chooses "pickpoint" if none is set.
-If using "pickpoint", please \href{https://pickpoint.io/users/sign_up}{sign up for your own (free) API key}
-to avoid using the default excessively.}
+\item{source}{One of "default", "google" or "pickpoint". If "default", the
+function calls \code{options("prettymapr.geosource")} or chooses
+"pickpoint" if none is set. If using "pickpoint", please
+\href{https://pickpoint.io/users/sign_up}{sign up for your own (free) API
+key} to avoid using the default excessively.}
 
 \item{messaging}{\code{TRUE} if verbose messaging is desired.}
 
-\item{limit}{The number of results to return per query. This refers to individual locations, for which
-ambiguous queries may return multiple results (e.g. Halifax, Nova Scotia; Halifax, United Kingdom, etc.).
-The default is 1. Pass 0 if no limit on queries is desired.}
+\item{limit}{The number of results to return per query. This refers to
+individual locations, for which ambiguous queries may return multiple
+results (e.g. Halifax, Nova Scotia; Halifax, United Kingdom, etc.). The
+default is 1. Pass 0 if no limit on queries is desired.}
 
 \item{key}{API key if \code{source="pickpoint"}.}
 
-\item{sensor}{\code{TRUE} if the location is generated from a sensor.}
+\item{...}{A number of key/value pairs to append to the URL, specifying
+further options specific to each API. Google users may wish to provide
+\code{client} and \code{signature} arguments for use with the enterprise
+version with the API, or specify additional constraints on geocoding.}
 
-\item{...}{A number of key/value pairs to append to the URL, specifying further options specific to each
-API. Google users may wish to provide \code{client} and \code{signature} arguments for use with
-the enterprise version with the API, or specify additional constraints on geocoding.}
+\item{sensor}{\code{TRUE} if the location is generated from a sensor.}
 }
 \value{
-A \code{list} or \code{data.frame}; see documentation for \code{output} argument.
+A \code{list} or \code{data.frame}; see documentation for
+  \code{output} argument.
 }
 \description{
 Geocode locations using the
-\href{https://developers.google.com/maps/documentation/geocoding/intro}{Google Web API} or
-the \href{https://pickpoint.io/}{PickPoint.io API}. Implemented
-from the \code{ggmap:geocode} function from the \code{ggmap}
-package (\url{https://cran.r-project.org/package=ggmap})
-by David Kahle
+\href{https://developers.google.com/maps/documentation/geocoding/intro}{Google
+Web API} or the \href{https://pickpoint.io/}{PickPoint.io API}. Implemented
+from the \code{ggmap:geocode} function from the \code{ggmap} package
+(\url{https://cran.r-project.org/package=ggmap}) by David Kahle
 }
 \examples{
-#don't test to speed up checking time
+# don't test to speed up checking time
 \donttest{
 geocode("wolfville, ns")
 geocode("wolfville, ns", output="list")
