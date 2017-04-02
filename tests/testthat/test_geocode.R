@@ -128,12 +128,6 @@ test_that("non 200 status codes throw warning when quiet = FALSE", {
 })
 
 test_that("vectors that contain zero-length input don't screw up the query / source columns", {
-  # essentially, if one query is NA or "", the entire query column is
-  # NA for, as far as I can see, no reason. this a partial fix for
-  # the most common case
-
-  # the partial fix is to allow zero-length queries. with cacheing, this is not
-  # an issue
 
   cities <- c("wolfville, ns", "halifax, ns", "calgary, ab", "auckland, nz", "middlebury, vt",
               "ottawa, on")
