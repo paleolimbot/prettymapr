@@ -74,12 +74,18 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
     location <- as.character(location)
   }
 
-  # keep out trivial location cases
+  # deal with special location cases
   if(length(location) == 0) {
     # zero-length input means zero-length output
     return(result_zero_length(output))
   } else if(length(location) == 1) {
-    if(is.na(location) || (nchar(location) <= 3)) return(result_empty(location, output))
+    if(is.na(location) || (nchar(location) <= 3)) {
+      if(output == "data.frame") {
+        return(cbind(query = location, source = NA_character_, result_empty("data.frame")))
+      } else {
+        return(list(NULL))
+      }
+    }
   }
 
   # check quiet param
@@ -134,15 +140,15 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
 
   geocoder_partial <- function(loc) {
     # keep out trivial cases from geocoder functions (causes errors TODO)
-    # if(is.na(loc) || (nchar(loc) <= 3)) return(result_empty(loc, output))
-    geocoder(loc, output = output, limit = limit, key = key, quiet = quiet, ...)
+    if(is.na(loc) || (nchar(loc) <= 3)) return(result_empty(output))
+    geocoder(loc, output = output, limit = limit, key = key, quiet = quiet, cache = cache, ...)
   }
 
   # generate output
   if(output == "data.frame") {
     # setup default data frame, which sets the template and column order for
     # results
-    df <- data.frame(query2 = location, source = source, rank = NA_integer_,
+    df <- data.frame(query = location, source = source, rank = NA_integer_,
                      lon = NA_real_, lat = NA_real_, address = NA_character_,
                      bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
                      bbox_w = NA_real_, stringsAsFactors = FALSE)
@@ -319,9 +325,9 @@ result_zero_length <- function(output) {
   }
 }
 
-result_empty <- function(loc, output) {
+result_empty <- function(output) {
   if(output == "data.frame") {
-    data.frame(query = loc, status = "empty input", source = NA_character_,
+    data.frame(status = "empty input",
                rank = NA_integer_, lon = NA_real_, lat = NA_real_, address = NA_character_,
                bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
                bbox_w = NA_real_,

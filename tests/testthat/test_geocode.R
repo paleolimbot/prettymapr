@@ -49,6 +49,7 @@ test_that("emptys and nulls produce the correct output", {
   expect_is(list0, "list")
   expect_length(list0, 0)
 
+  expect_silent(geocode(NA_character_, output = "data.frame"))
   dfNA <- geocode(NA_character_, output = "data.frame")
   expect_is(dfNA, "data.frame")
   expect_equal(nrow(dfNA), 1)
@@ -61,8 +62,8 @@ test_that("emptys and nulls produce the correct output", {
   expect_identical(listNA, geocode("", output = "list"))
 
   # check that the correct columns are returned for empty results
-  expect_equal(c("query", "status", "source", "rank", "lon", "lat", "address",
-                 "bbox_n", "bbox_e", "bbox_s", "bbox_w"), names(dfNA))
+  dfgood <- geocode("wolfville, ns", output = "data.frame")
+  expect_equal(names(dfNA), names(dfgood)[1:ncol(dfNA)])
 })
 
 test_that("output is vectorized with correct lengths", {
@@ -126,9 +127,7 @@ test_that("non 200 status codes throw warning when quiet = FALSE", {
   expect_warning(geocode("something", key = "not a key", quiet = FALSE))
 })
 
-test_that("vectors that contain zero-length input don't screw up the query column", {
-  cities <- c("wolfville, ns", "halifax, ns", "calgary, ab", "auckland, nz", "middlebury, vt",
-              "ottawa, on")
+test_that("vectors that contain zero-length input don't screw up the query / source columns", {
   # essentially, if one query is NA or "", the entire query column is
   # NA for, as far as I can see, no reason. this a partial fix for
   # the most common case
@@ -136,9 +135,15 @@ test_that("vectors that contain zero-length input don't screw up the query colum
   # the partial fix is to allow zero-length queries. with cacheing, this is not
   # an issue
 
+  cities <- c("wolfville, ns", "halifax, ns", "calgary, ab", "auckland, nz", "middlebury, vt",
+              "ottawa, on")
+
   df1 <- geocode(cities)
-  cities[1] <- ""
+  list1 <- geocode(cities, output = "list")
+  cities[2] <- ""
   df2 <- geocode(cities)
+  list2 <- geocode(cities, output = "list")
+
   expect_identical(nrow(df1), nrow(df2))
-  identical(df1[-1,], df2[-1,])
+  identical(df1[-2,], df2[-2,])
 })
