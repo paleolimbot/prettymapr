@@ -125,3 +125,20 @@ test_that("default source can be set from options", {
 test_that("non 200 status codes throw warning when quiet = FALSE", {
   expect_warning(geocode("something", key = "not a key", quiet = FALSE))
 })
+
+test_that("vectors that contain zero-length input don't screw up the query column", {
+  cities <- c("wolfville, ns", "halifax, ns", "calgary, ab", "auckland, nz", "middlebury, vt",
+              "ottawa, on")
+  # essentially, if one query is NA or "", the entire query column is
+  # NA for, as far as I can see, no reason. this a partial fix for
+  # the most common case
+
+  # the partial fix is to allow zero-length queries. with cacheing, this is not
+  # an issue
+
+  df1 <- geocode(cities)
+  cities[1] <- ""
+  df2 <- geocode(cities)
+  expect_identical(nrow(df1), nrow(df2))
+  identical(df1[-1,], df2[-1,])
+})

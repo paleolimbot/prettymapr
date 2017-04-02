@@ -133,8 +133,8 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
                    error_source = geocode_error)[[source]]
 
   geocoder_partial <- function(loc) {
-    # keep out trivial cases from geocoder functions
-    if(is.na(location) || (nchar(location) <= 3)) return(result_empty(location, output))
+    # keep out trivial cases from geocoder functions (causes errors TODO)
+    # if(is.na(loc) || (nchar(loc) <= 3)) return(result_empty(loc, output))
     geocoder(loc, output = output, limit = limit, key = key, quiet = quiet, ...)
   }
 
@@ -142,12 +142,13 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
   if(output == "data.frame") {
     # setup default data frame, which sets the template and column order for
     # results
-    df <- data.frame(query = location, source = source, rank = NA_integer_,
+    df <- data.frame(query2 = location, source = source, rank = NA_integer_,
                      lon = NA_real_, lat = NA_real_, address = NA_character_,
                      bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
                      bbox_w = NA_real_, stringsAsFactors = FALSE)
 
     df <- plyr::adply(df, 1, function(row) geocoder_partial(row$query))
+
     # ensure column output order
     cnames <- c("query", "source", "status", "rank", "lon", "lat", "address",
                 "bbox_n", "bbox_e", "bbox_s", "bbox_w")
@@ -318,9 +319,9 @@ result_zero_length <- function(output) {
   }
 }
 
-result_empty <- function(location, output) {
+result_empty <- function(loc, output) {
   if(output == "data.frame") {
-    data.frame(query = location, status = "empty input", source = NA_character_,
+    data.frame(query = loc, status = "empty input", source = NA_character_,
                rank = NA_integer_, lon = NA_real_, lat = NA_real_, address = NA_character_,
                bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
                bbox_w = NA_real_,
