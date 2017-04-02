@@ -1,0 +1,8 @@
+title: Prettymapr
+description: Tools for rapid, publication-grade mapping in R
+google_analytics: UA-73397650-1
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
