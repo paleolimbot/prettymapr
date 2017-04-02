@@ -6,7 +6,7 @@
 \usage{
 geocode(location, output = c("data.frame", "list"), source = "default",
   messaging = NULL, limit = 1, key = NULL, quiet = TRUE, cache = NA,
-  ...)
+  progress = c("time", "text", "none"), ...)
 }
 \arguments{
 \item{location}{A character vector (or an object that can be coerced to one)
@@ -39,12 +39,15 @@ default is 1. Pass 0 if no limit on queries is desired.}
 \item{key}{API key if \code{source="pickpoint"}.}
 
 \item{quiet}{By default, error messages are suppressed, and are instead included in the
-output as objects of class try-error (list output) or the appropriate value in the
+output as objects with a $status describing the error (list output) or the appropriate value in the
 'status' column (data frame output).}
 
 \item{cache}{The cache to use. Use NA for the internal cache (keeps first 1000 results),
 or a directory name (e.g. 'geo.cache'), which keeps an unlimited number of results. Use
 \link{clear_geocode_cache} to clear the cache.}
+
+\item{progress}{A plyr status bar, one of "time", "text", or "none". Passing quiet = FALSE
+will also disable the progress bar.}
 
 \item{...}{A number of key/value pairs to append to the URL, specifying
 further options specific to each API. Google users may wish to provide
@@ -63,7 +66,8 @@ Web API}, the \href{https://pickpoint.io/}{PickPoint.io API}, or the
 requests you should really use your own API key if you are using the default (pickpoint).
 Note that the Google Terms seem to indicate that you cannot place locations obtained
 from their API on non-google maps. Locations are all geocoded with erorrs kept quiet,
-which may result in list output containing items of class 'try-error', or data frame
+which may result in list output containing items with a $status element describing
+the error message, or data frame
 output containing a non-OK status in the status column.
 }
 \examples{

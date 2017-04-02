@@ -7,7 +7,8 @@
 #' requests you should really use your own API key if you are using the default (pickpoint).
 #' Note that the Google Terms seem to indicate that you cannot place locations obtained
 #' from their API on non-google maps. Locations are all geocoded with erorrs kept quiet,
-#' which may result in list output containing items of class 'try-error', or data frame
+#' which may result in list output containing items with a $status element describing
+#' the error message, or data frame
 #' output containing a non-OK status in the status column.
 #'
 #' @param location A character vector (or an object that can be coerced to one)
@@ -37,8 +38,10 @@
 #'   or a directory name (e.g. 'geo.cache'), which keeps an unlimited number of results. Use
 #'   \link{clear_geocode_cache} to clear the cache.
 #' @param quiet By default, error messages are suppressed, and are instead included in the
-#'   output as objects of class try-error (list output) or the appropriate value in the
+#'   output as objects with a $status describing the error (list output) or the appropriate value in the
 #'   'status' column (data frame output).
+#' @param progress A plyr status bar, one of "time", "text", or "none". Passing quiet = FALSE
+#'   will also disable the progress bar.
 #' @param ... A number of key/value pairs to append to the URL, specifying
 #'   further options specific to each API. Google users may wish to provide
 #'   \code{sensor}, \code{client} and \code{signature} arguments for use with the enterprise
@@ -65,9 +68,15 @@
 #'
 geocode <- function(location, output=c("data.frame", "list"), source = "default",
                     messaging = NULL, limit=1, key=NULL, quiet = TRUE, cache = NA,
-                    ...) {
+                    progress = c("time", "text", "none"), ...) {
   # output ban be "list" or "data.frame"
   output <- match.arg(output)
+  progress <- match.arg(progress)
+
+  # disable progress bar for length 1 or quiet = FALSE
+  if((length(location) == 1) || !quiet) {
+    progress <- "none"
+  }
 
   if(!is.character(location)) {
     message("Coercing argument 'location' from '", class(location)[1], "' to 'character'")
@@ -153,7 +162,8 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
                      bbox_n = NA_real_, bbox_e = NA_real_, bbox_s = NA_real_,
                      bbox_w = NA_real_, stringsAsFactors = FALSE)
 
-    df <- plyr::adply(df, 1, function(row) geocoder_partial(row$query))
+    df <- plyr::adply(df, 1, function(row) geocoder_partial(row$query),
+                      .progress = progress)
 
     # ensure column output order
     cnames <- c("query", "source", "status", "rank", "lon", "lat", "address",
@@ -161,7 +171,7 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
     df[c(cnames[cnames %in% names(df)], names(df)[!(names(df) %in% cnames)])]
   } else {
     # list is just the result of geocoder
-    plyr::llply(location, geocoder_partial)
+    plyr::llply(location, geocoder_partial, .progress = progress)
   }
 }
 

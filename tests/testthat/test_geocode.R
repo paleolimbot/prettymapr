@@ -83,7 +83,7 @@ test_that("output is vectorized with correct lengths", {
 
 test_that("errors in the geocode function don't stop execution", {
   expect_silent(geocode("something", source = "error_source"))
-  expect_silent(geocode(rep("something", 10), source = "error_source"))
+  expect_silent(geocode(rep("something", 10), source = "error_source", progress = "none"))
 })
 
 test_that("invalid pickpoint API key results in correct error message", {
@@ -129,6 +129,9 @@ test_that("non 200 status codes throw warning when quiet = FALSE", {
 
 test_that("vectors that contain zero-length input don't screw up the query / source columns", {
 
+  # this issue involved inconsistent column ordering for empty returns, and
+  # manifested itself as a lot of odd <NA> values appearing where they shouldn't
+
   cities <- c("wolfville, ns", "halifax, ns", "calgary, ab", "auckland, nz", "middlebury, vt",
               "ottawa, on")
 
@@ -140,4 +143,15 @@ test_that("vectors that contain zero-length input don't screw up the query / sou
 
   expect_identical(nrow(df1), nrow(df2))
   identical(df1[-2,], df2[-2,])
+})
+
+test_that("progress bar is hidden when appropriate", {
+  cities <- c("wolfville, ns", "halifax, ns")
+  expect_output(geocode(cities, key = "yxsN6E8EYYHFF_xsa_uL"))
+  # progress = none should be silent
+  expect_silent(geocode(cities, key = "yxsN6E8EYYHFF_xsa_uL", progress = "none"))
+  # length 1 argument should be silent
+  expect_silent(geocode(cities[1], key = "yxsN6E8EYYHFF_xsa_uL"))
+  # quiet = FALSE should not have a status bar, but won't be 'silent', per se
+  # don't know how to test for this
 })
