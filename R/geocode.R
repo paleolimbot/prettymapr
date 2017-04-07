@@ -307,9 +307,59 @@ geocode_pickpoint <- function(location, output, quiet = TRUE,
 
 # this could probably be moved to the public in the future, but for now
 # it's just using the old style option setting
+
+#' Get/Set the default geocoder
+#'
+#' The \link{geocode} function can use google, pickpoint, or data science toolkit
+#' to turn human-readable names into coordinates. Use these methods to get/set
+#' the default source. These will need to be called once per namespace load.
+#'
+#' @param geocoder The new source to use. One of "pickpoint", "google", or "dsk".
+#'
+#' @export
+#'
+#' @examples
+#' get_default_geocoder()
+#' set_default_geocoder("google")
+#' (set_default_geocoder(NULL))
+#'
 get_default_geocoder <- function() {
-  getOption("prettymapr.geosource")
+  # try old default in case it was set
+  old_default <- getOption("prettymapr.geosource")
+  if(is.null(old_default)) {
+    prettymapr_geocoding$default_geocoder
+  } else {
+    message("Using options() to set default geocoder is deprecated. Use ",
+            "set_default_geocoder() instead.")
+    old_default
+  }
 }
+
+#' @rdname get_default_geocoder
+#' @export
+set_default_geocoder <- function(geocoder) {
+  # use NULL to reset the default
+  if(is.null(geocoder)) {
+    geocoder <- "pickpoint"
+    options(prettymapr.geosource = NULL)
+  }
+
+  if(!is.character(geocoder) || (length(geocoder) != 1)) {
+    stop("'geocoder' must be a character vector of length 1")
+  }
+
+  if(!(geocoder %in% c("google", "dsk", "pickpoint", "error_source"))) {
+    stop("Unrecognized geocode source: ", geocoder)
+  }
+
+  old_geocoder <- suppressMessages(get_default_geocoder())
+  prettymapr_geocoding$default_geocoder <- geocoder
+  invisible(old_geocoder)
+}
+
+prettymapr_geocoding <- new.env(parent = emptyenv())
+prettymapr_geocoding$default_geocoder <- "pickpoint"
+
 
 # this is a test function that passes an invalid URL to geocode_google
 geocode_error <- function(...) {

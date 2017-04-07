@@ -2,7 +2,7 @@ Package: prettymapr
 Type: Package
 Title: Scale Bar, North Arrow, and Pretty Margins in R
 Version: 0.2.1
-Date: 2017-04-01
+Date: 2017-04-07
 Author: Dewey Dunnington <dewey@fishandwhistle.net>
 Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
 Description: Automates the process of creating a scale bar and north arrow in

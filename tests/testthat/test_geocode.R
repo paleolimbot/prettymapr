@@ -111,8 +111,6 @@ test_that("mesages are printed when defaults are guessed", {
                  "Using default API key for pickpoint.io.")
   expect_message(geocode(factor("something")),
                  "Coercing argument 'location' from 'factor' to 'character'")
-  expect_message(geocode("something", quiet = FALSE),
-                 "No default source set, using pickpoint.io")
   expect_silent(geocode("something", key = "yxsN6E8EYYHFF_xsa_uL", source = "pickpoint"))
 })
 
@@ -154,4 +152,22 @@ test_that("progress bar is hidden when appropriate", {
   expect_silent(geocode(cities[1], key = "yxsN6E8EYYHFF_xsa_uL"))
   # quiet = FALSE should not have a status bar, but won't be 'silent', per se
   # don't know how to test for this
+})
+
+test_that("setting the default source changes the source", {
+  # check base default
+  default_source <- get_default_geocoder()
+  expect_equal(default_source, "pickpoint")
+  expect_equal(geocode("wolfville ns")$source, default_source)
+
+  # check new default
+  new_default <- "google"
+  set_default_geocoder(new_default)
+  expect_equal(get_default_geocoder(), new_default)
+  expect_equal(geocode("wolfville ns")$source, new_default)
+
+  # check resetting default
+  set_default_geocoder(NULL)
+  expect_equal(get_default_geocoder(), "pickpoint")
+  expect_equal(geocode("wolfville ns")$source, "pickpoint")
 })
