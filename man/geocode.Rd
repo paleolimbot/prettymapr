@@ -25,7 +25,7 @@ but the length of the output list is guaranteed to be the same as the input vect
 \item{source}{One of "default", "google", "pickpoint", or "dsk". If "default", the
 function calls \code{getOption("prettymapr.geosource")} or chooses
 "pickpoint" if none is set. If using "pickpoint", please
-\href{https://pickpoint.io/users/sign_up}{sign up for your own (free) API
+\href{https://app.pickpoint.io/sign-up}{sign up for your own (free) API
 key} to avoid using the default excessively.}
 
 \item{messaging}{\code{TRUE} if verbose messaging is desired (now deprecated,
