@@ -26,7 +26,7 @@ makebbox(50.1232, -122.9574, 50.1035, -123.0042)
     ## x -123.0042 -122.9574
     ## y   50.1035   50.1232
 
-It is, of course, easier to search for bounding boxes by human-readable location (google maps style), although this requires some confidence in the internet to recognize your location (the default `source` is the [Pickpoint API](https://pickpoint.io/), although you can pass `source="google"` to use the [Google Maps API](https://developers.google.com/maps/), or `source="dsk"` to use the [Data Science Toolkit](http://www.datasciencetoolkit.org/)).
+It is, of course, easier to search for bounding boxes by human-readable location (google maps style), although this requires some confidence in the internet to recognize your location (the default `source` is the [PickPoint API](https://pickpoint.io/), although you can pass `source="google"` to use the [Google Maps API](https://developers.google.com/maps/), or `source="dsk"` to use the [Data Science Toolkit](http://www.datasciencetoolkit.org/)).
 
 ``` r
 searchbbox("alta lake, british columbia")
@@ -60,7 +60,7 @@ zoombbox(bb, 0.8) # zooms out a tad
 Geocoding tools
 ---------------
 
-Sometimes it's nice to be able to put cities on maps without having to look up their latitude and longitude, which is where the `geocode()` function comes in handy. It should be noted that the [ggmap package](https://cran.r-project.org/package=ggmap) also has a `geocode()` function that is also quite good, although didn't serve my purposes of calculating bounding boxes. If you do a lot of this, please [get your own API key](https://pickpoint.io/users/sign_up) so not everybody is using up mine (Google doesn't require one, although if you have an enterprise account you can pass a `key` just as you would for pickpoint).
+Sometimes it's nice to be able to put cities on maps without having to look up their latitude and longitude, which is where the `geocode()` function comes in handy. It should be noted that the [ggmap package](https://cran.r-project.org/package=ggmap) also has a `geocode()` function that is also quite good, although didn't serve my purposes of calculating bounding boxes. If you do a lot of this, please [get your own API key](https://app.pickpoint.io/sign-up) so not everybody is using up mine (Google doesn't require one, although if you have an enterprise account you can pass a `key` just as you would for pickpoint).
 
 ``` r
 results <- geocode(c("halifax, NS", "wolfville, NS", "moncton, NB"))

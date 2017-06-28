@@ -25,7 +25,7 @@
 #' @param source One of "default", "google", "pickpoint", or "dsk". If "default", the
 #'   function calls \code{getOption("prettymapr.geosource")} or chooses
 #'   "pickpoint" if none is set. If using "pickpoint", please
-#'   \href{https://pickpoint.io/users/sign_up}{sign up for your own (free) API
+#'   \href{https://app.pickpoint.io/sign-up}{sign up for your own (free) API
 #'   key} to avoid using the default excessively.
 #' @param messaging \code{TRUE} if verbose messaging is desired (now deprecated,
 #'   use 'quiet = FALSE' instead.
@@ -132,12 +132,12 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
 
     # keep big queries out without an api key
     if(length(unique(location)) > 10) stop("For bulk geocoding, please get your own PickPoint.io ",
-                                           "API key at https://pickpoint.io/users/sign_up ",
+                                           "API key at https://app.pickpoint.io/sign-up",
                                            "(or use source = 'google')")
 
     key <- "yxsN6E8EYYHFF_xsa_uL"
     message("Using default API key for pickpoint.io. If batch geocoding, please get your ",
-            "own (free) API key at https://pickpoint.io/users/sign_up")
+            "own (free) API key at https://app.pickpoint.io/sign-up")
 
   }
 
