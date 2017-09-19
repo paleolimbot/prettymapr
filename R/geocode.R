@@ -250,7 +250,9 @@ geocode_pickpoint <- function(location, output, quiet = TRUE,
   force(key)
   parse_pickpoint <- function(text) {
     if(text == "Unauthorized") stop("Invalid API key for pickpoint: ", key)
-    rjson::fromJSON(text)
+    data <- rjson::fromJSON(text)
+    if(identical(data$message, "Unauthorized")) stop("Invalid API key for pickpoint: ", key)
+    data
   }
 
   # query server
