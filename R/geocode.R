@@ -178,13 +178,13 @@ geocode <- function(location, output=c("data.frame", "list"), source = "default"
 # these geocoder functions require sanitized input of length 1
 
 geocode_dsk <- function(...) {
-  geocode_google(..., endpoint = "http://www.datasciencetoolkit.org/maps/api/geocode/json",
+  geocode_google(..., endpoint = "https://www.datasciencetoolkit.org/maps/api/geocode/json",
                  .encoding = "UTF-8")
 }
 
 geocode_google <- function(location, output, sensor = FALSE,
                            quiet = TRUE, cache = NA, limit = 1,
-                           endpoint = "http://maps.googleapis.com/maps/api/geocode/json", ...) {
+                           endpoint = "https://maps.googleapis.com/maps/api/geocode/json", ...) {
 
   # query server
   data <- try(restquery(endpoint, sensor = sensor, address = location, ..., .quiet = quiet,
