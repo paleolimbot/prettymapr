@@ -69,7 +69,7 @@ test_that("file caches work properly", {
   expect_equal(cache_size(cache), 0)
 
   # clean directory
-  unlink("test.cache")
+  unlink("test.cache", recursive = TRUE)
 })
 
 test_that("the null cache works properly", {

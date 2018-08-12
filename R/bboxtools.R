@@ -13,6 +13,15 @@
 #'
 #' @export
 makebbox <- function(n, e, s, w) {
+
+  if (n < s) {
+    warning("North less than south. Check order?")
+  }
+
+  if (e < w) {
+    warning("East less than west. Check order?")
+  }
+
   matrix(c(w, s, e, n), byrow=FALSE, ncol=2, dimnames=list(c("x", "y"), c("min", "max")))
 }
 
