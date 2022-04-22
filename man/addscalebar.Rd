@@ -4,11 +4,23 @@
 \alias{addscalebar}
 \title{Auto Plot Scalebar}
 \usage{
-addscalebar(plotunit = NULL, plotepsg = NULL, widthhint = 0.25,
-  unitcategory = "metric", htin = 0.1, padin = c(0.15, 0.15),
-  style = "bar", bar.cols = c("black", "white"), lwd = 1,
-  linecol = "black", tick.cex = 0.7, labelpadin = 0.08, label.cex = 0.8,
-  label.col = "black", pos = "bottomleft")
+addscalebar(
+  plotunit = NULL,
+  plotepsg = NULL,
+  widthhint = 0.25,
+  unitcategory = "metric",
+  htin = 0.1,
+  padin = c(0.15, 0.15),
+  style = "bar",
+  bar.cols = c("black", "white"),
+  lwd = 1,
+  linecol = "black",
+  tick.cex = 0.7,
+  labelpadin = 0.08,
+  label.cex = 0.8,
+  label.col = "black",
+  pos = "bottomleft"
+)
 }
 \arguments{
 \item{plotunit}{The unit which the current plot is plotted in, one of \code{cm},
@@ -68,4 +80,3 @@ addscalebar(plotepsg=26920) #specify plot is in UTM Zone 20N
 }
 
 }
-

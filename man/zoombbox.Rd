@@ -29,4 +29,3 @@ alta <- searchbbox("alta lake bc", source="google")
 zoombbox(alta, c(.2,.5))
 }
 }
-

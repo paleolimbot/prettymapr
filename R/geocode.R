@@ -52,7 +52,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf identical(Sys.getenv("R_PRETTYMAPR_HAS_API_KEY"), "true")
 #' # don't test to speed up checking time
 #' \donttest{
 #' geocode("wolfville, ns")

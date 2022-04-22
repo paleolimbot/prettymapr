@@ -20,4 +20,3 @@ being deleted from that directory.
 clear_geocode_cache()
 
 }
-

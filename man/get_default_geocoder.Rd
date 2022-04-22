@@ -23,4 +23,3 @@ set_default_geocoder("google")
 (set_default_geocoder(NULL))
 
 }
-

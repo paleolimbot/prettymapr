@@ -4,9 +4,18 @@
 \alias{geocode}
 \title{Geocode Locations}
 \usage{
-geocode(location, output = c("data.frame", "list"), source = "default",
-  messaging = NULL, limit = 1, key = NULL, quiet = TRUE, cache = NA,
-  progress = c("time", "text", "none"), ...)
+geocode(
+  location,
+  output = c("data.frame", "list"),
+  source = "default",
+  messaging = NULL,
+  limit = 1,
+  key = NULL,
+  quiet = TRUE,
+  cache = NA,
+  progress = c("time", "text", "none"),
+  ...
+)
 }
 \arguments{
 \item{location}{A character vector (or an object that can be coerced to one)
@@ -71,6 +80,7 @@ the error message, or data frame
 output containing a non-OK status in the status column.
 }
 \examples{
+\dontshow{if (identical(Sys.getenv("R_PRETTYMAPR_HAS_API_KEY"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # don't test to speed up checking time
 \donttest{
 geocode("wolfville, ns")
@@ -83,6 +93,5 @@ geocode(c("Houston, TX", "San Antonio TX", "Cleavland OH"), source="google")
 geocode("don't even think about geocoding this")
 geocode("don't even think about geocoding this", output="list")
 }
-
+\dontshow{\}) # examplesIf}
 }
-

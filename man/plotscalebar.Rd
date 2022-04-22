@@ -4,9 +4,18 @@
 \alias{plotscalebar}
 \title{Raw Plot Scale Bar}
 \usage{
-plotscalebar(x, y, ht, params, style = "bar", adj = c(0, 0),
-  tick.cex = 0.7, bar.cols = c("black", "white"), lwd = 1,
-  linecol = "black")
+plotscalebar(
+  x,
+  y,
+  ht,
+  params,
+  style = "bar",
+  adj = c(0, 0),
+  tick.cex = 0.7,
+  bar.cols = c("black", "white"),
+  lwd = 1,
+  linecol = "black"
+)
 }
 \arguments{
 \item{x}{The position (user) to draw the scale bar}
@@ -38,4 +47,3 @@ be using \link{addscalebar}.
 \seealso{
 \link{addscalebar}
 }
-

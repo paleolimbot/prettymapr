@@ -4,18 +4,39 @@
 \alias{prettymap}
 \title{Plot A Pretty Map}
 \usage{
-prettymap(plotexpression, oma = c(0, 0, 0, 0), mai = c(0, 0, 0, 0),
-  drawbox = FALSE, box.lwd = 1, drawscale = TRUE,
-  scale.pos = "bottomleft", scale.htin = 0.1, scale.widthhint = 0.25,
-  scale.unitcategory = "metric", scale.style = "bar",
-  scale.bar.cols = c("black", "white"), scale.lwd = 1,
-  scale.linecol = "black", scale.padin = c(0.15, 0.15),
-  scale.labelpadin = 0.08, scale.label.cex = 0.8,
-  scale.label.col = "black", scale.plotunit = NULL, scale.plotepsg = NULL,
-  scale.tick.cex = 0.8, drawarrow = FALSE, arrow.pos = "topright",
-  arrow.scale = 1, arrow.padin = c(0.15, 0.15), arrow.lwd = 1,
-  arrow.cols = c("white", "black"), arrow.border = "black",
-  arrow.text.col = "black", title = NULL, ...)
+prettymap(
+  plotexpression,
+  oma = c(0, 0, 0, 0),
+  mai = c(0, 0, 0, 0),
+  drawbox = FALSE,
+  box.lwd = 1,
+  drawscale = TRUE,
+  scale.pos = "bottomleft",
+  scale.htin = 0.1,
+  scale.widthhint = 0.25,
+  scale.unitcategory = "metric",
+  scale.style = "bar",
+  scale.bar.cols = c("black", "white"),
+  scale.lwd = 1,
+  scale.linecol = "black",
+  scale.padin = c(0.15, 0.15),
+  scale.labelpadin = 0.08,
+  scale.label.cex = 0.8,
+  scale.label.col = "black",
+  scale.plotunit = NULL,
+  scale.plotepsg = NULL,
+  scale.tick.cex = 0.8,
+  drawarrow = FALSE,
+  arrow.pos = "topright",
+  arrow.scale = 1,
+  arrow.padin = c(0.15, 0.15),
+  arrow.lwd = 1,
+  arrow.cols = c("white", "black"),
+  arrow.border = "black",
+  arrow.text.col = "black",
+  title = NULL,
+  ...
+)
 }
 \arguments{
 \item{plotexpression}{An expression to plot the map, can be in brackets. e.g.
@@ -116,4 +137,3 @@ prettymap(plot(1:1000, 1:1000, asp=1),
 }
 
 }
-

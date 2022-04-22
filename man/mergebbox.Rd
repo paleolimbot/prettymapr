@@ -23,4 +23,3 @@ box3 <- searchbbox("kentville, ns")
 mergebbox(box1, box2, box3)
 
 }
-

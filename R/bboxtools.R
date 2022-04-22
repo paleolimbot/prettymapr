@@ -39,7 +39,7 @@ makebbox <- function(n, e, s, w) {
 #'   to permanently use \code{google} as a source.
 #' @return A 2x2 matrix describing a bounding box like that returned by \code{sp::bbox()}
 #'
-#' @examples
+#' @examplesIf identical(Sys.getenv("R_PRETTYMAPR_HAS_API_KEY"), "true")
 #' #don't test to speed up checking time
 #' \donttest{
 #' searchbbox("kings county, NS")

@@ -11,7 +11,6 @@ Description: Automates the process of creating a scale bar and north arrow in
     of setting margins, plotting the map, scale bar, and north arrow, and resetting
     graphic parameters upon completion.
 License: GPL-2
-LazyData: TRUE
 Imports:
     digest,
     rjson,
@@ -26,4 +25,5 @@ Suggests:
     sp
 URL: https://github.com/paleolimbot/prettymapr
 BugReports: https://github.com/paleolimbot/prettymapr/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.2
+Encoding: UTF-8

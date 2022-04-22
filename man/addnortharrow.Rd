@@ -4,9 +4,15 @@
 \alias{addnortharrow}
 \title{Plot North Arrow}
 \usage{
-addnortharrow(pos = "topright", padin = c(0.15, 0.15), scale = 1,
-  lwd = 1, border = "black", cols = c("white", "black"),
-  text.col = "black")
+addnortharrow(
+  pos = "topright",
+  padin = c(0.15, 0.15),
+  scale = 1,
+  lwd = 1,
+  border = "black",
+  cols = c("white", "black"),
+  text.col = "black"
+)
 }
 \arguments{
 \item{pos}{Where to align the north arrow. One of "bottomleft", "bottomright", "topleft",
@@ -40,4 +46,3 @@ plot(1:5, 1:5, asp=1)
 addnortharrow()
 
 }
-
