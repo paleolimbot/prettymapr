@@ -3,3 +3,4 @@
 ^rcanvec\.cache$
 ^README\.Rmd$
 ^rosm\.cache$
+^\.github$
