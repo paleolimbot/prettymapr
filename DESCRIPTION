@@ -20,7 +20,6 @@ Suggests:
     maptools,
     raster,
     rosm,
-    testthat,
     rgdal,
     sp
 URL: https://github.com/paleolimbot/prettymapr
