@@ -27,10 +27,10 @@ makebbox <- function(n, e, s, w) {
 
 #' Query The Interwebs For A Bounding Box
 #'
-#' Use the \href{https://pickpoint.io/}{PickPoint.io API} or Google API to
+#' Use the PickPoint.io API or Google API to
 #' retreive a bounding box for the given query. Note that if
 #' you would like to use \code{google} as a source, you must agree to the Google
-#' API \href{https://developers.google.com/terms/}{terms and conditions}.
+#' API terms and conditions.
 #'
 #' @param querystring The search query. Passing a vector in will find the bounding box that contains
 #'                    all bounding boxes returned.

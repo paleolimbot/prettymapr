@@ -18,10 +18,10 @@ to permanently use \code{google} as a source.}
 A 2x2 matrix describing a bounding box like that returned by \code{sp::bbox()}
 }
 \description{
-Use the \href{https://pickpoint.io/}{PickPoint.io API} or Google API to
+Use the PickPoint.io API or Google API to
 retreive a bounding box for the given query. Note that if
 you would like to use \code{google} as a source, you must agree to the Google
-API \href{https://developers.google.com/terms/}{terms and conditions}.
+API terms and conditions.
 }
 \examples{
 \dontshow{if (identical(Sys.getenv("R_PRETTYMAPR_HAS_API_KEY"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

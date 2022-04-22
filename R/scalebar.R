@@ -1,6 +1,6 @@
 
 # Calculates the geodesic distance between two points specified by radian latitude/longitude using the
-# Haversine formula (hf) from: http://www.r-bloggers.com/great-circle-distance-calculations-in-r/
+# Haversine formula (hf)
 .torad <- function(deg) {
   deg*pi/180.0
 }
