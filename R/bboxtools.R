@@ -14,11 +14,11 @@
 #' @export
 makebbox <- function(n, e, s, w) {
 
-  if (n < s) {
+  if (isTRUE(n < s)) {
     warning("North less than south. Check order?")
   }
 
-  if (e < w) {
+  if (isTRUE(e < w)) {
     warning("East less than west. Check order?")
   }
 

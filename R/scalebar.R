@@ -125,7 +125,7 @@ scalebarparams <- function(plotunit=NULL, plotepsg=NULL, widthhint=0.25, unitcat
        extents[3] >= -90 &&
        extents[3] <= 90 &&
        extents[4] >= -90 &&
-       extents[4 <= 90]) {
+       extents[4] <= 90) {
       message("Autodetect projection: assuming lat/lon (epsg 4326)")
       plotepsg <- 4326
     } else {
