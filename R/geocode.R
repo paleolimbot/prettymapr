@@ -188,7 +188,7 @@ geocode_google <- function(location, output, sensor = FALSE,
                         .parser = rjson::fromJSON, .cache = cache), silent = TRUE)
 
   # check for try-error
-  if(class(data) == "try-error") {
+  if(inherits(data, "try-error")) {
     return(result_error(attr(data, "condition")$message, output))
   }
 
@@ -257,7 +257,7 @@ geocode_pickpoint <- function(location, output, quiet = TRUE,
                         .parser = parse_pickpoint, .cache = cache), silent = TRUE)
 
   # check for try-error
-  if(class(data) == "try-error") {
+  if(inherits(data, "try-error")) {
     return(result_error(attr(data, "condition")$message, output))
   }
 
