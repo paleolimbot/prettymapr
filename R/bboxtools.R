@@ -74,10 +74,9 @@ searchbbox <- function(querystring, ...) {
 #' @return A zoomed bounding box.
 #'
 #' @examples
-#' \donttest{
-#' alta <- searchbbox("alta lake bc", source="google")
-#' zoombbox(alta, c(.2,.5))
-#' }
+#' box1 <- makebbox(45, -64, 44, -65)
+#' zoombbox(box1, c(.2,.5))
+#'
 #' @export
 #'
 zoombbox <- function(bbox, factor=1, offset=c(0,0)) {
@@ -111,10 +110,10 @@ zoombbox <- function(bbox, factor=1, offset=c(0,0)) {
 #' @export
 #'
 #' @examples
-#' box1 <- searchbbox("wolfville, ns")
-#' box2 <- searchbbox("halifax, ns")
-#' box3 <- searchbbox("kentville, ns")
-#' mergebbox(box1, box2, box3)
+#'
+#' box1 <- makebbox(45, -64, 44, -65)
+#' box2 <- makebbox(45.5, -64.5, 44.5, -65.6)
+#' mergebbox(box1, box2)
 #'
 mergebbox <- function(...) {
   coords <- t(cbind(...))

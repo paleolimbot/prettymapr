@@ -24,8 +24,7 @@ existing bbox. This is helpful when manipulating the extents of a
 plot created by \code{canvec.qplot()}
 }
 \examples{
-\donttest{
-alta <- searchbbox("alta lake bc", source="google")
-zoombbox(alta, c(.2,.5))
-}
+box1 <- makebbox(45, -64, 44, -65)
+zoombbox(box1, c(.2,.5))
+
 }

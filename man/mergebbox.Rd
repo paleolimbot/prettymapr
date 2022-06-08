@@ -17,9 +17,9 @@ A single bounding box that contains all of its arguments.
 Create a single bounding box that encloses all of the bounding boxes.
 }
 \examples{
-box1 <- searchbbox("wolfville, ns")
-box2 <- searchbbox("halifax, ns")
-box3 <- searchbbox("kentville, ns")
-mergebbox(box1, box2, box3)
+
+box1 <- makebbox(45, -64, 44, -65)
+box2 <- makebbox(45.5, -64.5, 44.5, -65.6)
+mergebbox(box1, box2)
 
 }
