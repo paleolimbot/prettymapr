@@ -68,7 +68,7 @@ restquery <- function(.endpoint, ..., .cache=NA, .parser=identity, .quiet=FALSE,
   connect <- try(httr::GET(url_string), silent=TRUE)
 
   # check for fail
-  if(class(connect) != "try-error") {
+  if(inherits(connect, "try-error")) {
 
     # try to get content
     if(!.quiet) httr::warn_for_status(connect)
