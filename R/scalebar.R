@@ -11,7 +11,6 @@
 
   # require gdal for actual projections
   if(!requireNamespace("sp")) stop("package 'sp' is required for non lat/lon coordinates")
-  if(!requireNamespace("rgdal")) stop("package 'rgdal' is required for non lat/lon coordinates")
 
   coords <- sp::coordinates(matrix(c(x,y), byrow=TRUE, ncol=2))
   spoints <- sp::SpatialPoints(coords, sp::CRS(paste0("+init=epsg:", epsg)))
