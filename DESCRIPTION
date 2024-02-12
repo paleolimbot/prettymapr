@@ -16,10 +16,8 @@ Imports:
     httr,
     plyr
 Suggests:
-    maptools,
     raster,
     rosm,
-    rgdal,
     sp
 URL: https://github.com/paleolimbot/prettymapr
 BugReports: https://github.com/paleolimbot/prettymapr/issues
