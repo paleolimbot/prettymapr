@@ -17,12 +17,6 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
-#' library(maptools)
-#' data(wrld_simpl)
-#' plot(wrld_simpl)
-#' addnortharrow()
-#' }
 #' plot(1:5, 1:5, asp=1)
 #' addnortharrow()
 #'
